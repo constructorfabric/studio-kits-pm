@@ -1,0 +1,1100 @@
+# Constraints for the Competitive Analysis Kit artifact kinds.
+# Deterministic validation contract consumed by `cfs validate`.
+#
+# Traceability backbone: RESEARCH-REQUEST is the root artifact. Every
+# downstream kind (CANDIDATE-REGISTER, COMPANY-PROFILE, COMPANY-DOSSIER,
+# COMPARISON-MATRIX — added in later kit versions) declares a coverage
+# reference back to the request's Traceability section, so every research
+# artifact remains attributable to the request that commissioned it.
+
+# ── RESEARCH-REQUEST Heading outline ──────────────────────────────────
+
+[[artifacts."RESEARCH-REQUEST".headings]]
+id = "req-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Research Request\s*[—–-]\s*.+'
+description = "Research request title (H1): 'Research Request — {target}'."
+
+[[artifacts."RESEARCH-REQUEST".headings]]
+id = "req-fields"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Request Fields"
+description = "The eight request fields (target, decision question, scope, comparison frame, depth, requested output, evidence cutoff, access boundary); omitted fields carry the literal value 'unspecified'."
+
+[[artifacts."RESEARCH-REQUEST".headings]]
+id = "req-boundary"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Boundary"
+description = "What this request can and cannot establish; a discovery scan is not a feature-parity or buy/build result."
+
+[[artifacts."RESEARCH-REQUEST".headings]]
+id = "req-evidence"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence and Original Files"
+description = "The original request text and any named input sources (evidence locators when already indexed)."
+
+[[artifacts."RESEARCH-REQUEST".headings]]
+id = "req-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-links to artifacts derived from this request (required section; holds the mandatory downstream back-references)."
+
+# ── RESEARCH-REQUEST Identifiers ──────────────────────────────────────
+
+[artifacts."RESEARCH-REQUEST".identifiers.req]
+name = "Competitive-Research Request"
+description = "One structured competitive-research request: what question must be answered, at which depth, within which evidence boundary."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-req-{slug}"
+headings = ["req-h1-title"]
+
+# ── CANDIDATE-REGISTER Heading outline ────────────────────────────────
+
+[[artifacts."CANDIDATE-REGISTER".headings]]
+id = "reg-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Candidate Register\s*[—–-]\s*.+'
+description = "Candidate register title (H1): 'Candidate Register — {target}'."
+
+[[artifacts."CANDIDATE-REGISTER".headings]]
+id = "reg-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Scope Statement"
+description = "What this register is NOT (no feature parity, no ranking), the searched candidate space, and the classification boundary in play."
+
+[[artifacts."CANDIDATE-REGISTER".headings]]
+id = "reg-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Evidence cutoff, access boundary, depth, and completeness state for this register."
+
+[[artifacts."CANDIDATE-REGISTER".headings]]
+id = "reg-candidates"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Candidates"
+description = "The candidate table: candidate, classification, aliases, why in scope, evidence, next action."
+
+[[artifacts."CANDIDATE-REGISTER".headings]]
+id = "reg-boundary"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Boundary"
+description = "What this register does and does not establish; lead status is not a confirmed-competitor or feature claim."
+
+[[artifacts."CANDIDATE-REGISTER".headings]]
+id = "reg-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "Local selection rationale, membership, and evidence-index locators used to assemble the register."
+
+[[artifacts."CANDIDATE-REGISTER".headings]]
+id = "reg-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the RESEARCH-REQUEST that commissioned this register."
+
+# ── CANDIDATE-REGISTER Identifiers ────────────────────────────────────
+
+[artifacts."CANDIDATE-REGISTER".identifiers.reg]
+name = "Candidate Competitor Register"
+description = "One source-backed register of possible direct, adjacent, or emerging competitors for an approved research request."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-reg-{slug}"
+headings = ["reg-h1-title"]
+
+# Mandatory backbone link: every register must be traceable back from the
+# request that commissioned it, referenced from the request's Traceability
+# section. The discover workflow appends this back-link when it registers
+# the artifact.
+[artifacts."CANDIDATE-REGISTER".identifiers.reg.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+# ── ORIENTATION-CARD Heading outline ──────────────────────────────────
+
+[[artifacts."ORIENTATION-CARD".headings]]
+id = "ori-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Orientation Card\s*[—–-]\s*.+'
+description = "Orientation card title (H1): 'Orientation Card — {company or offering}'."
+
+[[artifacts."ORIENTATION-CARD".headings]]
+id = "ori-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Opens with what an orientation card is NOT (not a full profile, not feature parity); evidence cutoff, access boundary, depth, completeness."
+
+[[artifacts."ORIENTATION-CARD".headings]]
+id = "ori-what-it-is"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "What It Is"
+description = "The offering, its stated target user/problem, and the principal documented mechanisms — evidenced."
+
+[[artifacts."ORIENTATION-CARD".headings]]
+id = "ori-surfaces"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Visible Product Surfaces"
+description = "The publicly visible product surfaces, one evidenced bullet each."
+
+[[artifacts."ORIENTATION-CARD".headings]]
+id = "ori-posture"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Company and Source Posture"
+description = "Visible commercial model and source posture with source classes and dates; a third-party profile is labelled as such."
+
+[[artifacts."ORIENTATION-CARD".headings]]
+id = "ori-unknowns"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Important Unknowns"
+description = "What the retained public sources do not establish — recorded, never inferred away."
+
+[[artifacts."ORIENTATION-CARD".headings]]
+id = "ori-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "Fact ledger, retained extracts, and evidence-index locators used to assemble the card."
+
+[[artifacts."ORIENTATION-CARD".headings]]
+id = "ori-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the RESEARCH-REQUEST that commissioned this card."
+
+# ── ORIENTATION-CARD Identifiers ──────────────────────────────────────
+
+[artifacts."ORIENTATION-CARD".identifiers.ori]
+name = "Company Orientation Card"
+description = "A short, evidence-bounded explanation of one named company or offering, produced before deciding whether deeper research is worthwhile."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-ori-{slug}"
+headings = ["ori-h1-title"]
+
+# Mandatory backbone link: every orientation card must be traceable back
+# from the request that commissioned it.
+[artifacts."ORIENTATION-CARD".identifiers.ori.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+# ── COMPANY-PROFILE Heading outline ───────────────────────────────────
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Company Profile\s*[—–-]\s*.+'
+description = "Company profile title (H1): 'Company Profile — {company}'."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Opens with what a standard profile is NOT (not an exhaustive dossier, not feature parity); evidence cutoff, access boundary, depth, completeness."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-facts"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Company and Commercial Facts"
+description = "Field / Observed value / Boundary table; unevidenced rows say so explicitly; every row's boundary cell carries an evidence reference and time-sensitive values carry an as-of date."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-provides"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "What the Company Provides"
+description = "Offerings → capabilities → concrete features/mechanisms; target users, deployment, and integrations where evidenced."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-strongest"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Strongest Documented Point"
+description = "The clearest documented mechanism or position, with evidence."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-weakest"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Weakest Documented Boundary"
+description = "What the retained material does not establish — evidence limits, never absence claims."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-studio-relevance"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Studio Relevance"
+description = "Role/stage/job or outcome coverage in scope for the request's comparison frame; observed coverage kept separate from the requester's vision hypotheses."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-borrow"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = 'What to Borrow\s*[—–-]\s*Product Hypothesis'
+description = "Labelled product hypotheses derived from named documented mechanisms; never commitments. Explicitly states none qualified when empty."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-oss"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Open-Source Posture"
+description = "Repository licence and posture summary; a repository licence is not product suitability or hosted-product equivalence."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-unknowns"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Material Unknowns"
+description = "The unknowns that matter for the decision question; recorded, not inferred away."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "Fact ledger, retained extracts, and evidence-index locators used to assemble the profile."
+
+[[artifacts."COMPANY-PROFILE".headings]]
+id = "prof-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the RESEARCH-REQUEST that commissioned this profile."
+
+# ── COMPANY-PROFILE Identifiers ───────────────────────────────────────
+
+[artifacts."COMPANY-PROFILE".identifiers.prof]
+name = "Standard Company Profile"
+description = "One consistent, source-backed company page: commercial facts, product surface, assessment, relevance, and labelled borrow hypotheses."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-prof-{slug}"
+headings = ["prof-h1-title"]
+
+# Mandatory backbone link: every profile must be traceable back from the
+# request that commissioned it.
+[artifacts."COMPANY-PROFILE".identifiers.prof.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+[artifacts."COMPANY-PROFILE".identifiers.bor]
+name = "What-to-Borrow Product Hypothesis"
+description = "A labelled product hypothesis derived from a named documented mechanism; research input, never a requirement or commitment."
+required = false
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-bor-{slug}"
+headings = ["prof-borrow"]
+
+# ── COMPANY-DOSSIER Heading outline ───────────────────────────────────
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Company Dossier\s*[—–-]\s*.+'
+description = "Company dossier title (H1): 'Company Dossier — {company}'."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Source count, access dates, cutoff, access boundary, completeness; states this is a vendor-described boundary, not verified runtime behaviour or customer outcome."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-product-surface"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Product Surface"
+description = "The documented product/platform surface, grounded in the retained sources."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-capability-graph"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Capability Graph"
+description = "Product → capability → documented features/mechanisms table with per-row evidence."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-mechanics"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Documented Mechanics"
+description = "Area / documented public surface / what remains unestablished — the per-row negative space is mandatory."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-source-availability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Source Availability"
+description = "Per source class: public, gated, unavailable, planned, or preview — with evidence."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-users-boundary"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Users, Availability, and Commercial Boundary"
+description = "What the retained sources do not establish about users, availability states, and commercial terms."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-conclusion"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Dossier Conclusion"
+description = "What the subject is credible for and what the retained set does not establish — evidence limits, not absence claims."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "Profile, retained extracts, and evidence-index locators used to assemble the dossier."
+
+[[artifacts."COMPANY-DOSSIER".headings]]
+id = "dos-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the commissioning RESEARCH-REQUEST; names the expanded COMPANY-PROFILE when one exists."
+
+# ── COMPANY-DOSSIER Identifiers ───────────────────────────────────────
+
+[artifacts."COMPANY-DOSSIER".identifiers.dos]
+name = "Deep Company Dossier"
+description = "The standard profile expanded with retained evidence: capability graph, documented mechanics, source availability, and explicit limitations."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-dos-{slug}"
+headings = ["dos-h1-title"]
+
+# Mandatory backbone link: every dossier must be traceable back from the
+# request that commissioned it. The dossier→profile relation is soft (named
+# in Traceability when a profile exists) because a dossier may be
+# commissioned directly.
+[artifacts."COMPANY-DOSSIER".identifiers.dos.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+# ── OSS-REVIEW Heading outline ────────────────────────────────────────
+
+[[artifacts."OSS-REVIEW".headings]]
+id = "oss-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'OSS Review\s*[—–-]\s*.+'
+description = "Open-source and alternative-implementation review title (H1): 'OSS Review — {company set or capability}'."
+
+[[artifacts."OSS-REVIEW".headings]]
+id = "oss-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Review Scope"
+description = "The two distinct questions (vendor posture; alternative implementations) and what the review is NOT: repository visibility is not product open-source, and an SDK/connector/docs repository is not the product core."
+
+[[artifacts."OSS-REVIEW".headings]]
+id = "oss-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Evidence cutoff, access boundary, depth, and completeness state for this review."
+
+[[artifacts."OSS-REVIEW".headings]]
+id = "oss-posture"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Vendor Source Posture"
+description = "One row per offering: posture exactly one of open-source | open-core | partly-open-source | closed-source | not_assessed, with basis and evidence."
+
+[[artifacts."OSS-REVIEW".headings]]
+id = "oss-repos"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Repository Review"
+description = "One row per repository: component scope (core | connector | sdk | plugin | examples | documentation | benchmark | other), licence and activity with evidence, deployability, reuse relevance and follow-up."
+
+[[artifacts."OSS-REVIEW".headings]]
+id = "oss-recommendation"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Recommendation Boundary"
+description = "Which leads are clearest and what each still needs (licence review, architecture review); never a reuse/buy/build decision."
+
+[[artifacts."OSS-REVIEW".headings]]
+id = "oss-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "Fact ledgers, retained repository extracts, and evidence-index locators used to assemble the review."
+
+[[artifacts."OSS-REVIEW".headings]]
+id = "oss-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the RESEARCH-REQUEST that commissioned this review."
+
+# ── OSS-REVIEW Identifiers ────────────────────────────────────────────
+
+[artifacts."OSS-REVIEW".identifiers.oss]
+name = "Open-Source and Alternative-Implementation Review"
+description = "Vendor source posture recorded separately from per-repository licence, scope, deployability, activity, and reuse relevance."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-oss-{slug}"
+headings = ["oss-h1-title"]
+
+# Mandatory backbone link: every OSS review must be traceable back from the
+# request that commissioned it.
+[artifacts."OSS-REVIEW".identifiers.oss.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+# ── MECHANISM-STUDY Heading outline ───────────────────────────────────
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Mechanism Study\s*[—–-]\s*.+'
+description = "Mechanism study title (H1): 'Mechanism Study — {narrow question or capability}'."
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Study Scope"
+description = "The narrow question; this compares documented mechanisms, not broad company categories, and produces no cost-performance or quality ranking."
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Evidence cutoff, access boundary, depth, and completeness state for this study."
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-map"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Mechanism Map"
+description = "Rows are mechanisms, not companies: mechanism, observed example (closest documented analogue), direct input it processes, documented action and output/review behaviour, what is not established, evidence."
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-comparison-fields"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Comparison Fields"
+description = "The fields a later comparison of these mechanisms must record, so unlike surfaces are not conflated (e.g. a dashboard called an optimizer)."
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-hypothesis"
+level = 2
+required = false
+multiple = false
+numbered = true
+pattern = "Product Hypothesis"
+description = "Optional: a labelled 'what the requester could do' direction derived from the map — visibly a product hypothesis, never an implementation commitment."
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-boundary"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Boundary"
+description = "What this study does not establish; unobserved elements are evidence limits, never absence claims."
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "Analysis briefs, fact ledgers, and evidence-index locators used to assemble the study."
+
+[[artifacts."MECHANISM-STUDY".headings]]
+id = "mech-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the RESEARCH-REQUEST that commissioned this study."
+
+# ── MECHANISM-STUDY Identifiers ───────────────────────────────────────
+
+[artifacts."MECHANISM-STUDY".identifiers.mech]
+name = "Mechanism and Whitespace Study"
+description = "A narrow-question comparison of documented mechanisms: inputs, observed operation, output/review behaviour, analogues, and evidence boundaries."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-mech-{slug}"
+headings = ["mech-h1-title"]
+
+# Mandatory backbone link: every mechanism study must be traceable back
+# from the request that commissioned it.
+[artifacts."MECHANISM-STUDY".identifiers.mech.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+# ── WATCH-REPORT Heading outline ──────────────────────────────────────
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Watch Report\s*[—–-]\s*.+'
+description = "Watch report title (H1): 'Watch Report — {subject}'."
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Watch Scope"
+description = "The watched subject and fields, the defined cadence, and what a watch is NOT: a change signal alone never establishes customer, revenue, or strategic impact."
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Evidence cutoff, access boundary, depth, and completeness state for this watch pass."
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-status"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Watch Status"
+description = "baseline (first retained observation; no change claims) or change-report (names the prior report compared against); the observation date."
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-register"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Watch Register"
+description = "One row per watched field: the current dated observation, its evidence, and the next comparison rule that defines what counts as a material change."
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-changes"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Detected Changes"
+description = "change-report mode: one row per change — watched field, prior observation, current observation, observed_on date, why it matters, evidence (or the explicit no-material-change line). baseline mode: the explicit baseline line; never a change claim."
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-boundary"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Boundary"
+description = "What this watch pass does not establish; a release-note, marketing, or repository signal alone never establishes adoption or business impact."
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "Fact ledgers, retained extracts, and evidence-index locators used for this pass."
+
+[[artifacts."WATCH-REPORT".headings]]
+id = "wat-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the commissioning RESEARCH-REQUEST; a change-report also names the prior watch report."
+
+# ── WATCH-REPORT Identifiers ──────────────────────────────────────────
+
+[artifacts."WATCH-REPORT".identifiers.wat]
+name = "Competitive Watch Report"
+description = "One watch pass over a register of watched fields: a dated baseline, or dated change records against the prior retained observation."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-wat-{slug}"
+headings = ["wat-h1-title"]
+
+# Mandatory backbone link: every watch report must be traceable back from
+# the request that commissioned it.
+[artifacts."WATCH-REPORT".identifiers.wat.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+# ── COMPARISON-MATRIX Heading outline ─────────────────────────────────
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Comparison Matrix\s*[—–-]\s*.+'
+description = "Comparison matrix title (H1): 'Comparison Matrix — {frame}'."
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-frame"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Comparison Frame"
+description = "Exactly one frame, restated as the question it answers and the question it does NOT answer; the compared companies/products."
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Evidence cutoff, access boundary, depth, and completeness state for this comparison."
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-matrix"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Matrix"
+description = "Long-format cell rows: company, feature/mechanism, status (substantial|partial|not_observed|not_comparable), availability (current|planned|vision), observed_on date, documented boundary, evidence."
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-studio-position"
+level = 2
+required = false
+multiple = false
+numbered = true
+pattern = "Studio Position"
+description = "Mandatory whenever Studio is among the compared: Studio today and Studio vision/product hypothesis as separate rows or labels, never merged or scored as delivered capability."
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-conclusion"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Readable Conclusion"
+description = "What the matrix establishes within the frame — including the negative findings — without winner/loser scores or rankings."
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-boundary"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Boundary"
+description = "What this comparison does not establish; not_observed is never evidence of absence, and numbers from different products are not comparable as accuracy."
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "Analysis briefs, normalized tables, and evidence-index locators used to assemble the matrix."
+
+[[artifacts."COMPARISON-MATRIX".headings]]
+id = "cmp-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the commissioning RESEARCH-REQUEST; names the profiles/dossiers the comparison drew on."
+
+# ── COMPARISON-MATRIX Identifiers ─────────────────────────────────────
+
+[artifacts."COMPARISON-MATRIX".identifiers.cmp]
+name = "Competitive Coverage Comparison"
+description = "One single-frame comparison of selected companies: per-cell mechanism, status, availability, observation date, boundary, and evidence."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-cmp-{slug}"
+headings = ["cmp-h1-title"]
+
+# Mandatory backbone link: every comparison must be traceable back from the
+# request that commissioned it.
+[artifacts."COMPARISON-MATRIX".identifiers.cmp.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+# ── FEATURE-TAXONOMY Heading outline ──────────────────────────────────
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Feature Taxonomy\s*[—–-]\s*.+'
+description = "Feature taxonomy title (H1): 'Feature Taxonomy — {frame}'."
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Taxonomy Scope"
+description = "What this taxonomy is NOT (not a comparison result; inclusion is never a capability claim), the frame, and the compared-vendor set whose union fed the rows."
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Evidence cutoff, access boundary, depth, and completeness (which corpora were mined; which compared vendors remain unmined)."
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-rows"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Feature Rows"
+description = "The normalized rows (target 8–20 per frame): label, definition, inclusion criterion two analysts would apply identically, evidence."
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-aliases"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Vendor Aliases"
+description = "One row per (feature, vendor) pair: the vendor's verbatim term with the evidence where the vendor uses it."
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-provenance"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Union Provenance"
+description = "The anti-anchor audit: every compared vendor with the rows its corpus first established, or the explicit no-rows-beyond-the-union line."
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-boundary"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Boundary"
+description = "What the taxonomy does not establish: inclusion is not availability; aliases are recorded normalization judgments; the row set widens with new corpora."
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "The mine_terms.py invocations, the mined corpora, and the evidence-index locators."
+
+[[artifacts."FEATURE-TAXONOMY".headings]]
+id = "tax-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the RESEARCH-REQUEST that commissioned this taxonomy."
+
+# ── FEATURE-TAXONOMY Identifiers ──────────────────────────────────────
+
+[artifacts."FEATURE-TAXONOMY".identifiers.tax]
+name = "Feature Taxonomy"
+description = "The normalization contract for one comparison frame: union-derived rows with definitions, inclusion criteria, per-vendor aliases, and provenance."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-tax-{slug}"
+headings = ["tax-h1-title"]
+
+# Mandatory backbone link: every taxonomy must be traceable back from the
+# request whose frame it normalizes.
+[artifacts."FEATURE-TAXONOMY".identifiers.tax.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]
+
+# ── RESEARCH-REVIEW Heading outline ───────────────────────────────────
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+pattern = 'Research Review\s*[—–-]\s*.+'
+description = "Research review title (H1): 'Research Review — {run or request subject}'."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Review Scope"
+description = "What this review is NOT (not a new research result; no claims, no rankings, no decisions), the reviewed artifact set, and the conformance contract in force."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-evidence-scope"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Evidence Scope"
+description = "Evidence cutoff, access boundary, depth, and completeness state for this review."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-conformance"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Requirements Conformance"
+description = "One row per commissioned flow: required output, artifact, verdict (met | partial | gap | not_commissioned), and the concrete finding behind every partial/gap verdict."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-coverage"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Run Coverage"
+description = "One row per register next action: status (done | partial | open | superseded), the fulfilling artifact, and the follow-up for open work."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-findings"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Informativeness Findings"
+description = "What limits the set's usefulness for the decision question: severity (critical | high | medium | low), affected artifacts, one concrete recommended action each."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-next-passes"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Recommended Next Passes"
+description = "The findings translated into an ordered work list; every item names a kit workflow and subject — research routing, never commitments."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-boundary"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Boundary"
+description = "What this review does not establish; an open next action is unexecuted routing, not a defect of the artifacts that exist."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-original-files"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Original Files"
+description = "The coverage report invocation, the reviewed artifact paths, and the evidence-index locator."
+
+[[artifacts."RESEARCH-REVIEW".headings]]
+id = "rev-traceability"
+level = 2
+required = true
+multiple = false
+numbered = true
+pattern = "Traceability"
+description = "Back-link to the RESEARCH-REQUEST that commissioned this review."
+
+# ── RESEARCH-REVIEW Identifiers ───────────────────────────────────────
+
+[artifacts."RESEARCH-REVIEW".identifiers.rev]
+name = "Research Run Review"
+description = "One audit of a research run's artifact set: requirements conformance, next-action coverage, informativeness findings, and recommended next passes."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-rev-{slug}"
+headings = ["rev-h1-title"]
+
+# Mandatory backbone link: every review must be traceable back from the
+# request whose run it audits.
+[artifacts."RESEARCH-REVIEW".identifiers.rev.references."RESEARCH-REQUEST"]
+coverage = true
+headings = ["req-traceability"]

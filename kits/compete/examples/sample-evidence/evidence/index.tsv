@@ -1,0 +1,12 @@
+evd_id	locator	accessed_on	access	capture_method	retained_path	purpose
+EVD-358	https://www.ycombinator.com/companies/openspec	2026-07-17	public	retained extract	extracts/2026-07-17-openspec-source-extracts.md	OpenSpec company identity, founding, and adoption claim (YC profile)
+EVD-359	https://github.com/Fission-AI/OpenSpec	2026-07-17	public	retained extract	extracts/2026-07-17-openspec-source-extracts.md	OpenSpec public repository: license, README, project surface
+EVD-360	https://openspec.dev/	2026-07-17	public	retained extract	extracts/2026-07-17-openspec-source-extracts.md	OpenSpec product website: Workspaces maturity labelling
+EVD-361	https://github.com/Fission-AI/OpenSpec/blob/main/docs/getting-started.md	2026-07-17	public	retained extract	extracts/2026-07-17-openspec-source-extracts.md	OpenSpec getting-started guide: starter loop and change artifacts
+EVD-362	https://github.com/Fission-AI/OpenSpec/blob/main/docs/supported-tools.md	2026-07-17	public	retained extract	extracts/2026-07-17-openspec-source-extracts.md	OpenSpec supported-tools guide: tool profiles and command surface
+EVD-363	https://github.com/Fission-AI/OpenSpec/blob/main/docs/installation.md	2026-07-17	public	retained extract	extracts/2026-07-17-openspec-source-extracts.md	OpenSpec installation guide: install paths and runtime prerequisite
+EVD-364	https://github.com/Fission-AI/OpenSpec/blob/main/docs/cli.md	2026-07-17	public	retained extract	extracts/2026-07-17-openspec-source-extracts.md	OpenSpec CLI reference: beta personal worksets boundary
+EVD-141	-	2026-07-15	public	AnySite webparser parse	extracts/2026-07-15-ai-sdlc-framework-readme.md	AI-SDLC Framework repository README: project labels and public surface
+EVD-142	-	2026-07-15	public	AnySite webparser parse	extracts/2026-07-15-ai-sdlc-framework-specification.md	AI-SDLC Framework specification page: documented workflow structure
+EVD-143	-	2026-07-15	public	AnySite webparser parse	extracts/2026-07-15-ai-sdlc-framework-getting-started.md	AI-SDLC Framework getting-started guide: entry path and prerequisites
+EVD-144	-	2026-07-15	public	AnySite webparser parse	extracts/2026-07-15-ai-sdlc-framework-license.md	AI-SDLC Framework license page: declared license

@@ -1,0 +1,239 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  kits-generic:
+    # Generic gate for every kit under kits/: TOML files parse and
+    # Python scripts compile. New kits are picked up automatically.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: TOML parses (root manifest and every kit)
+        run: |
+          python3 - <<'PY'
+          import pathlib, tomllib
+          root = pathlib.Path(".cf-studio-kit.toml")
+          data = tomllib.load(open(root, "rb"))
+          slugs = [k["slug"] for k in data["kits"]]
+          print("ok:", root, "kits:", ", ".join(slugs))
+          kits = sorted(p for p in pathlib.Path("kits").iterdir() if p.is_dir())
+          assert kits, "no kits found under kits/"
+          # Every kit directory must be declared in the root manifest.
+          missing = [k.name for k in kits if k.name not in slugs]
+          assert not missing, f"kits missing from root manifest: {missing}"
+          versions = {k["slug"]: k["version"] for k in data["kits"]}
+          for kit in kits:
+              for name in ("conf.toml", "constraints.toml", "whatsnew.toml"):
+                  f = kit / name
+                  if f.is_file():
+                      parsed = tomllib.load(open(f, "rb"))
+                      print("ok:", f)
+                      if name == "conf.toml" and "version" in parsed:
+                          conf_v, manifest_v = parsed["version"], versions[kit.name]
+                          assert conf_v == manifest_v, (
+                              f"{f}: version {conf_v} != root manifest {manifest_v}")
+          PY
+      - name: Python scripts compile in every kit
+        run: |
+          for d in kits/*/scripts; do
+            [ -d "$d" ] || continue
+            python3 -m py_compile "$d"/*.py
+            echo "ok: $d"
+          done
+
+  compete:
+    # The compete kit's own deterministic checks (checkers, renderers,
+    # protocol conventions) against its hermetic sample evidence.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: kits/compete
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Evidence checker on the sample set
+        run: |
+          python3 scripts/check_evidence.py \
+            --evidence-dir examples/sample-evidence/evidence \
+            --companies-dir examples/sample-evidence/companies
+      - name: Intake dry-run is deterministic on the sample set
+        run: |
+          python3 scripts/build_evidence_index.py examples/sample-evidence \
+            --evidence-dir examples/sample-evidence/evidence --dry-run \
+            | tee /tmp/intake.log
+          grep -q "nothing to add; all referenced evidence resolves" /tmp/intake.log
+      - name: Artifact references resolve on the shipped examples
+        run: |
+          python3 scripts/check_artifact_refs.py \
+            artifacts/*/examples/example.md \
+            --evidence-dir examples/sample-evidence/evidence \
+            --companies-dir examples/sample-evidence/companies \
+            --lint-language
+      - name: Matrix-taxonomy binding is enforced both ways
+        run: |
+          # Shipped pair passes with --artifacts-dir.
+          python3 scripts/check_artifact_refs.py \
+            artifacts/COMPARISON-MATRIX/examples/example.md \
+            --evidence-dir examples/sample-evidence/evidence \
+            --companies-dir examples/sample-evidence/companies \
+            --artifacts-dir artifacts --lint-language
+          mkdir -p /tmp/taxbind
+          # A label outside the taxonomy fails.
+          sed 's/| OpenSpec | Change proposal capture:/| OpenSpec | Proposal pipeline:/' \
+            artifacts/COMPARISON-MATRIX/examples/example.md > /tmp/taxbind/bad-label.md
+          ! python3 scripts/check_artifact_refs.py /tmp/taxbind/bad-label.md \
+            --evidence-dir examples/sample-evidence/evidence \
+            --artifacts-dir artifacts 2>/dev/null
+          # Dropping a taxonomy row fails.
+          grep -v '| AI-SDLC Framework | Shared planning workspace |' \
+            artifacts/COMPARISON-MATRIX/examples/example.md \
+            | sed 's/| OpenSpec | Shared planning workspace:.*//' > /tmp/taxbind/missing-row.md
+          ! python3 scripts/check_artifact_refs.py /tmp/taxbind/missing-row.md \
+            --evidence-dir examples/sample-evidence/evidence \
+            --artifacts-dir artifacts 2>/dev/null
+      - name: Deck views render script-free from the matrix example
+        run: |
+          python3 scripts/render_matrix_deck.py \
+            artifacts/COMPARISON-MATRIX/examples/example.md \
+            --evidence-dir examples/sample-evidence/evidence \
+            --mode tabs -o /tmp/deck-tabs.html
+          python3 scripts/render_matrix_deck.py \
+            artifacts/COMPARISON-MATRIX/examples/example.md \
+            --evidence-dir examples/sample-evidence/evidence \
+            --mode heatmap -o /tmp/deck-heat.html
+          ! grep -qi "<script" /tmp/deck-tabs.html /tmp/deck-heat.html
+          grep -q "s-not_observed" /tmp/deck-tabs.html
+          grep -q "Coverage heatmap" /tmp/deck-heat.html
+          # Heatmap links must be relative to the output file: written into
+          # the matrices' exports dir, the href is the bare export filename.
+          mkdir -p /tmp/deck-sim/research/COMPARISON-MATRIX/exports
+          cp artifacts/COMPARISON-MATRIX/examples/example.md /tmp/deck-sim/research/COMPARISON-MATRIX/
+          (cd /tmp/deck-sim && python3 "$GITHUB_WORKSPACE/kits/compete/scripts/render_matrix_deck.py" \
+            research/COMPARISON-MATRIX/example.md \
+            --evidence-dir "$GITHUB_WORKSPACE/kits/compete/examples/sample-evidence/evidence" \
+            --mode heatmap -o research/COMPARISON-MATRIX/exports/comparison-heatmap.html)
+          grep -q 'href="example.html"' /tmp/deck-sim/research/COMPARISON-MATRIX/exports/comparison-heatmap.html
+      - name: Term mining and taxonomy coverage are deterministic on the sample set
+        run: |
+          python3 scripts/mine_terms.py \
+            --evidence-dir examples/sample-evidence/evidence | tee /tmp/mine.log
+          grep -q "candidate term(s) across 2 subject(s)" /tmp/mine.log
+          python3 scripts/mine_terms.py \
+            --evidence-dir examples/sample-evidence/evidence \
+            --taxonomy artifacts/FEATURE-TAXONOMY/examples/example.md | tee /tmp/cov.log
+          grep -q "mine_terms coverage: 10/10 rows hit, 12/12 aliases hit, 0 without hits" /tmp/cov.log
+          python3 scripts/render_views.py \
+            artifacts/FEATURE-TAXONOMY/examples/example.md \
+            --format csv --out-dir /tmp/render-tax
+          head -1 /tmp/render-tax/example.csv \
+            | grep -qx "feature,definition,inclusion_criteria,evidence"
+      - name: Progress-protocol conventions hold
+        run: |
+          # Every user gate is typed (decision | confirmation); no bare gates.
+          ! grep -RnE '\(\*\*user gate\*\*\)' workflows/
+          ! grep -RnP 'user gate — (?!decision|confirmation)' workflows/
+          # Every workflow declares its Route block; SKILL defines the protocol.
+          for f in workflows/*.md; do
+            grep -q '^## Route$' "$f" || { echo "missing Route: $f"; exit 1; }
+          done
+          grep -q '^## Progress protocol$' SKILL.md
+          # Express guardrails must not regress: user-approval definition,
+          # the end-turn stop at the plan gate, and the run-log approval record.
+          grep -q "approved only when the user answers the run-plan gate" SKILL.md
+          grep -q "STOP — end the turn after presenting the plan" workflows/run.md
+          grep -q "Plan approved by user" workflows/run.md
+      - name: Kind detection survives hyphenated system slugs
+        run: |
+          mkdir -p /tmp/kind-test
+          sed 's/cpt-specs-reg-openspec-peers/cpt-my-long-system-reg-openspec-peers/; s/cpt-specs-req-openspec-peer-set/cpt-my-long-system-req-openspec-peer-set/' \
+            artifacts/CANDIDATE-REGISTER/examples/example.md > /tmp/kind-test/register.md
+          python3 scripts/check_artifact_refs.py /tmp/kind-test/register.md \
+            --evidence-dir examples/sample-evidence/evidence \
+            --companies-dir examples/sample-evidence/companies
+          python3 scripts/render_views.py /tmp/kind-test/register.md \
+            --format csv --out-dir /tmp/kind-test
+          head -1 /tmp/kind-test/register.csv \
+            | grep -qx "candidate,relationship,why_in_scope,evidence,next_action"
+          sed 's/cpt-specs-reg-openspec-peers/cpt-specs-zzz-openspec-peers/' \
+            artifacts/CANDIDATE-REGISTER/examples/example.md > /tmp/kind-test/unknown.md
+          ! python3 scripts/check_artifact_refs.py /tmp/kind-test/unknown.md \
+            --evidence-dir examples/sample-evidence/evidence 2>/dev/null
+      - name: Pricing benchmark renders from the profile example
+        run: |
+          python3 scripts/render_pricing.py \
+            artifacts/COMPANY-PROFILE/examples/example.md -o /tmp/pricing.csv
+          head -1 /tmp/pricing.csv \
+            | grep -qx "company,field,observed_value,as_of,boundary,evidence"
+          test "$(wc -l < /tmp/pricing.csv)" -ge 2
+      - name: Coverage report is deterministic on the assembled example run
+        run: |
+          run=/tmp/cov-run
+          for k in RESEARCH-REQUEST CANDIDATE-REGISTER ORIENTATION-CARD \
+                   COMPANY-PROFILE COMPANY-DOSSIER COMPARISON-MATRIX \
+                   OSS-REVIEW MECHANISM-STUDY WATCH-REPORT RESEARCH-REVIEW; do
+            mkdir -p "$run/$k"
+            cp "artifacts/$k/examples/example.md" "$run/$k/"
+          done
+          python3 scripts/check_coverage.py "$run" \
+            --evidence-dir examples/sample-evidence/evidence \
+            --companies-dir examples/sample-evidence/companies \
+            --as-of 2026-07-18 | tee /tmp/coverage.log
+          grep -q "check_coverage: 9/9 flow(s) covered, 1 open next action(s)" /tmp/coverage.log
+          grep -q "OPEN AI-SDLC Framework: missing: COMPANY-PROFILE" /tmp/coverage.log
+          grep -q "DONE OpenSpec: fulfilled: COMPARISON-MATRIX" /tmp/coverage.log
+      - name: Rendered views match the expected shape
+        run: |
+          python3 scripts/render_views.py \
+            artifacts/CANDIDATE-REGISTER/examples/example.md \
+            --format csv,html --out-dir /tmp/render
+          head -1 /tmp/render/example.csv \
+            | grep -qx "candidate,relationship,why_in_scope,evidence,next_action"
+          grep -q "Evidence locators resolve in" /tmp/render/example.html
+          ! grep -qi "<script" /tmp/render/example.html
+          python3 scripts/render_views.py \
+            artifacts/COMPARISON-MATRIX/examples/example.md \
+            --format csv,html --out-dir /tmp/render-cmp
+          head -1 /tmp/render-cmp/example.csv \
+            | grep -qx "company,feature_mechanism,status,availability,observed_on,documented_boundary,evidence"
+          ! grep -qi "<script" /tmp/render-cmp/example.html
+          python3 scripts/render_views.py \
+            artifacts/RESEARCH-REVIEW/examples/example.md \
+            --format csv,html --out-dir /tmp/render-rev
+          head -1 /tmp/render-rev/example.csv \
+            | grep -qx "lead,next_action,status,fulfilled_by,follow_up"
+          ! grep -qi "<script" /tmp/render-rev/example.html
+
+  cfs:
+    # Full validation of every kit via the Constructor Studio CLI.
+    # New kits under kits/ are picked up automatically.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install cfs
+        run: |
+          pipx install git+https://github.com/constructorfabric/studio.git
+          cfs --version
+      - name: validate-kits against the root manifest
+        run: cfs validate-kits .
+      - name: kit normalize catches manifest errors
+        run: cfs kit normalize --dry-run . --json --kit all
+      - name: pdsl validate on every kit
+        run: |
+          for kit in kits/*/; do
+            files=$(ls "$kit"workflows/*.md "$kit"artifacts/*/rules.md 2>/dev/null || true)
+            [ -n "$files" ] || continue
+            echo "=== $kit ==="
+            cfs pdsl validate $files
+          done

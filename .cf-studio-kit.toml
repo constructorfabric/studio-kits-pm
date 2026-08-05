@@ -1,0 +1,654 @@
+# Canonical multi-kit manifest for this repository.
+# Each [[kits]] entry is one installable kit; resource `source` paths are
+# repo-relative (kits/<slug>/...), `install_path` stays project-relative.
+
+manifest_version = "1.0"
+
+[[kits]]
+slug = "compete"
+name = "compete"
+version = "1.13.3"
+
+[[kits.resources]]
+id = "research_request_template"
+kind = "template"
+source = "kits/compete/artifacts/RESEARCH-REQUEST/template.md"
+install_path = "artifacts/RESEARCH-REQUEST/template.md"
+type = "file"
+user_modifiable = true
+description = "RESEARCH-REQUEST artifact template"
+
+[[kits.resources]]
+id = "research_request_rules"
+kind = "other"
+source = "kits/compete/artifacts/RESEARCH-REQUEST/rules.md"
+install_path = "artifacts/RESEARCH-REQUEST/rules.md"
+type = "file"
+user_modifiable = true
+description = "RESEARCH-REQUEST authoring and validation rules"
+
+[[kits.resources]]
+id = "research_request_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/RESEARCH-REQUEST/checklist.md"
+install_path = "artifacts/RESEARCH-REQUEST/checklist.md"
+type = "file"
+user_modifiable = true
+description = "RESEARCH-REQUEST semantic review checklist"
+
+[[kits.resources]]
+id = "research_request_example"
+kind = "other"
+source = "kits/compete/artifacts/RESEARCH-REQUEST/examples/example.md"
+install_path = "artifacts/RESEARCH-REQUEST/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "RESEARCH-REQUEST example artifact"
+
+[[kits.resources]]
+id = "candidate_register_template"
+kind = "template"
+source = "kits/compete/artifacts/CANDIDATE-REGISTER/template.md"
+install_path = "artifacts/CANDIDATE-REGISTER/template.md"
+type = "file"
+user_modifiable = true
+description = "CANDIDATE-REGISTER artifact template"
+
+[[kits.resources]]
+id = "candidate_register_rules"
+kind = "other"
+source = "kits/compete/artifacts/CANDIDATE-REGISTER/rules.md"
+install_path = "artifacts/CANDIDATE-REGISTER/rules.md"
+type = "file"
+user_modifiable = true
+description = "CANDIDATE-REGISTER authoring and validation rules"
+
+[[kits.resources]]
+id = "candidate_register_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/CANDIDATE-REGISTER/checklist.md"
+install_path = "artifacts/CANDIDATE-REGISTER/checklist.md"
+type = "file"
+user_modifiable = true
+description = "CANDIDATE-REGISTER semantic review checklist"
+
+[[kits.resources]]
+id = "candidate_register_example"
+kind = "other"
+source = "kits/compete/artifacts/CANDIDATE-REGISTER/examples/example.md"
+install_path = "artifacts/CANDIDATE-REGISTER/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "CANDIDATE-REGISTER example artifact"
+
+[[kits.resources]]
+id = "orientation_card_template"
+kind = "template"
+source = "kits/compete/artifacts/ORIENTATION-CARD/template.md"
+install_path = "artifacts/ORIENTATION-CARD/template.md"
+type = "file"
+user_modifiable = true
+description = "ORIENTATION-CARD artifact template"
+
+[[kits.resources]]
+id = "orientation_card_rules"
+kind = "other"
+source = "kits/compete/artifacts/ORIENTATION-CARD/rules.md"
+install_path = "artifacts/ORIENTATION-CARD/rules.md"
+type = "file"
+user_modifiable = true
+description = "ORIENTATION-CARD authoring and validation rules"
+
+[[kits.resources]]
+id = "orientation_card_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/ORIENTATION-CARD/checklist.md"
+install_path = "artifacts/ORIENTATION-CARD/checklist.md"
+type = "file"
+user_modifiable = true
+description = "ORIENTATION-CARD semantic review checklist"
+
+[[kits.resources]]
+id = "orientation_card_example"
+kind = "other"
+source = "kits/compete/artifacts/ORIENTATION-CARD/examples/example.md"
+install_path = "artifacts/ORIENTATION-CARD/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "ORIENTATION-CARD example artifact"
+
+[[kits.resources]]
+id = "workflow_orient"
+kind = "skill"
+source = "kits/compete/workflows/orient.md"
+install_path = "workflows/orient.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Produce a short company orientation card (Flow 3)"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "company_profile_template"
+kind = "template"
+source = "kits/compete/artifacts/COMPANY-PROFILE/template.md"
+install_path = "artifacts/COMPANY-PROFILE/template.md"
+type = "file"
+user_modifiable = true
+description = "COMPANY-PROFILE artifact template"
+
+[[kits.resources]]
+id = "company_profile_rules"
+kind = "other"
+source = "kits/compete/artifacts/COMPANY-PROFILE/rules.md"
+install_path = "artifacts/COMPANY-PROFILE/rules.md"
+type = "file"
+user_modifiable = true
+description = "COMPANY-PROFILE authoring and validation rules"
+
+[[kits.resources]]
+id = "company_profile_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/COMPANY-PROFILE/checklist.md"
+install_path = "artifacts/COMPANY-PROFILE/checklist.md"
+type = "file"
+user_modifiable = true
+description = "COMPANY-PROFILE semantic review checklist"
+
+[[kits.resources]]
+id = "company_profile_example"
+kind = "other"
+source = "kits/compete/artifacts/COMPANY-PROFILE/examples/example.md"
+install_path = "artifacts/COMPANY-PROFILE/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "COMPANY-PROFILE example artifact"
+
+[[kits.resources]]
+id = "company_dossier_template"
+kind = "template"
+source = "kits/compete/artifacts/COMPANY-DOSSIER/template.md"
+install_path = "artifacts/COMPANY-DOSSIER/template.md"
+type = "file"
+user_modifiable = true
+description = "COMPANY-DOSSIER artifact template"
+
+[[kits.resources]]
+id = "company_dossier_rules"
+kind = "other"
+source = "kits/compete/artifacts/COMPANY-DOSSIER/rules.md"
+install_path = "artifacts/COMPANY-DOSSIER/rules.md"
+type = "file"
+user_modifiable = true
+description = "COMPANY-DOSSIER authoring and validation rules"
+
+[[kits.resources]]
+id = "company_dossier_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/COMPANY-DOSSIER/checklist.md"
+install_path = "artifacts/COMPANY-DOSSIER/checklist.md"
+type = "file"
+user_modifiable = true
+description = "COMPANY-DOSSIER semantic review checklist"
+
+[[kits.resources]]
+id = "company_dossier_example"
+kind = "other"
+source = "kits/compete/artifacts/COMPANY-DOSSIER/examples/example.md"
+install_path = "artifacts/COMPANY-DOSSIER/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "COMPANY-DOSSIER example artifact"
+
+[[kits.resources]]
+id = "watch_report_template"
+kind = "template"
+source = "kits/compete/artifacts/WATCH-REPORT/template.md"
+install_path = "artifacts/WATCH-REPORT/template.md"
+type = "file"
+user_modifiable = true
+description = "WATCH-REPORT artifact template"
+
+[[kits.resources]]
+id = "watch_report_rules"
+kind = "other"
+source = "kits/compete/artifacts/WATCH-REPORT/rules.md"
+install_path = "artifacts/WATCH-REPORT/rules.md"
+type = "file"
+user_modifiable = true
+description = "WATCH-REPORT authoring and validation rules"
+
+[[kits.resources]]
+id = "watch_report_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/WATCH-REPORT/checklist.md"
+install_path = "artifacts/WATCH-REPORT/checklist.md"
+type = "file"
+user_modifiable = true
+description = "WATCH-REPORT semantic review checklist"
+
+[[kits.resources]]
+id = "watch_report_example"
+kind = "other"
+source = "kits/compete/artifacts/WATCH-REPORT/examples/example.md"
+install_path = "artifacts/WATCH-REPORT/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "WATCH-REPORT example artifact"
+
+[[kits.resources]]
+id = "workflow_watch"
+kind = "skill"
+source = "kits/compete/workflows/watch.md"
+install_path = "workflows/watch.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Establish or run a competitive watch pass (Flow 9)"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "mechanism_study_template"
+kind = "template"
+source = "kits/compete/artifacts/MECHANISM-STUDY/template.md"
+install_path = "artifacts/MECHANISM-STUDY/template.md"
+type = "file"
+user_modifiable = true
+description = "MECHANISM-STUDY artifact template"
+
+[[kits.resources]]
+id = "mechanism_study_rules"
+kind = "other"
+source = "kits/compete/artifacts/MECHANISM-STUDY/rules.md"
+install_path = "artifacts/MECHANISM-STUDY/rules.md"
+type = "file"
+user_modifiable = true
+description = "MECHANISM-STUDY authoring and validation rules"
+
+[[kits.resources]]
+id = "mechanism_study_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/MECHANISM-STUDY/checklist.md"
+install_path = "artifacts/MECHANISM-STUDY/checklist.md"
+type = "file"
+user_modifiable = true
+description = "MECHANISM-STUDY semantic review checklist"
+
+[[kits.resources]]
+id = "mechanism_study_example"
+kind = "other"
+source = "kits/compete/artifacts/MECHANISM-STUDY/examples/example.md"
+install_path = "artifacts/MECHANISM-STUDY/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "MECHANISM-STUDY example artifact"
+
+[[kits.resources]]
+id = "workflow_mechanism"
+kind = "skill"
+source = "kits/compete/workflows/mechanism.md"
+install_path = "workflows/mechanism.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Study one mechanism or product gap (Flow 8) across documented analogues"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "oss_review_template"
+kind = "template"
+source = "kits/compete/artifacts/OSS-REVIEW/template.md"
+install_path = "artifacts/OSS-REVIEW/template.md"
+type = "file"
+user_modifiable = true
+description = "OSS-REVIEW artifact template"
+
+[[kits.resources]]
+id = "oss_review_rules"
+kind = "other"
+source = "kits/compete/artifacts/OSS-REVIEW/rules.md"
+install_path = "artifacts/OSS-REVIEW/rules.md"
+type = "file"
+user_modifiable = true
+description = "OSS-REVIEW authoring and validation rules"
+
+[[kits.resources]]
+id = "oss_review_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/OSS-REVIEW/checklist.md"
+install_path = "artifacts/OSS-REVIEW/checklist.md"
+type = "file"
+user_modifiable = true
+description = "OSS-REVIEW semantic review checklist"
+
+[[kits.resources]]
+id = "oss_review_example"
+kind = "other"
+source = "kits/compete/artifacts/OSS-REVIEW/examples/example.md"
+install_path = "artifacts/OSS-REVIEW/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "OSS-REVIEW example artifact"
+
+[[kits.resources]]
+id = "workflow_oss_review"
+kind = "skill"
+source = "kits/compete/workflows/oss-review.md"
+install_path = "workflows/oss-review.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Review open-source posture and alternative implementations (Flow 7)"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "comparison_matrix_template"
+kind = "template"
+source = "kits/compete/artifacts/COMPARISON-MATRIX/template.md"
+install_path = "artifacts/COMPARISON-MATRIX/template.md"
+type = "file"
+user_modifiable = true
+description = "COMPARISON-MATRIX artifact template"
+
+[[kits.resources]]
+id = "comparison_matrix_rules"
+kind = "other"
+source = "kits/compete/artifacts/COMPARISON-MATRIX/rules.md"
+install_path = "artifacts/COMPARISON-MATRIX/rules.md"
+type = "file"
+user_modifiable = true
+description = "COMPARISON-MATRIX authoring and validation rules"
+
+[[kits.resources]]
+id = "comparison_matrix_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/COMPARISON-MATRIX/checklist.md"
+install_path = "artifacts/COMPARISON-MATRIX/checklist.md"
+type = "file"
+user_modifiable = true
+description = "COMPARISON-MATRIX semantic review checklist"
+
+[[kits.resources]]
+id = "comparison_matrix_example"
+kind = "other"
+source = "kits/compete/artifacts/COMPARISON-MATRIX/examples/example.md"
+install_path = "artifacts/COMPARISON-MATRIX/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "COMPARISON-MATRIX example artifact"
+
+[[kits.resources]]
+id = "workflow_compare"
+kind = "skill"
+source = "kits/compete/workflows/compare.md"
+install_path = "workflows/compare.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Compare selected companies under exactly one frame (Flow 6)"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "workflow_dossier"
+kind = "skill"
+source = "kits/compete/workflows/dossier.md"
+install_path = "workflows/dossier.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Create a deep company dossier (Flow 5) expanding the standard profile with retained evidence"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "workflow_profile"
+kind = "skill"
+source = "kits/compete/workflows/profile.md"
+install_path = "workflows/profile.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Create a standard source-backed company profile (Flow 4)"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "workflow_discover"
+kind = "skill"
+source = "kits/compete/workflows/discover.md"
+install_path = "workflows/discover.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Build a candidate competitor register (Flow 2) from a research request and indexed evidence"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "workflow_capture"
+kind = "skill"
+source = "kits/compete/workflows/capture.md"
+install_path = "workflows/capture.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Capture live public web pages into retained extracts and index them (the web intake surface)"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "workflow_intake"
+kind = "skill"
+source = "kits/compete/workflows/intake.md"
+install_path = "workflows/intake.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Build or extend the competitive evidence ledger from a folder of retained evidence"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "scripts"
+kind = "directory"
+source = "kits/compete/scripts"
+install_path = "scripts"
+type = "directory"
+user_modifiable = true
+description = "Deterministic evidence tooling (build_evidence_index.py, check_evidence.py)"
+
+[[kits.resources]]
+id = "guides"
+kind = "directory"
+source = "kits/compete/guides"
+install_path = "guides"
+type = "directory"
+user_modifiable = true
+description = "Kit method guides (QUICKSTART, ARCHITECTURE, EVIDENCE, CAPTURE, DEMO) — the capture workflow requires guides/CAPTURE.md and guides/EVIDENCE.md at runtime"
+
+[[kits.resources]]
+id = "workflow_request"
+kind = "skill"
+source = "kits/compete/workflows/request.md"
+install_path = "workflows/request.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Create a structured competitive-research request (Flow 1)"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "research_review_template"
+kind = "template"
+source = "kits/compete/artifacts/RESEARCH-REVIEW/template.md"
+install_path = "artifacts/RESEARCH-REVIEW/template.md"
+type = "file"
+user_modifiable = true
+description = "RESEARCH-REVIEW artifact template"
+
+[[kits.resources]]
+id = "research_review_rules"
+kind = "other"
+source = "kits/compete/artifacts/RESEARCH-REVIEW/rules.md"
+install_path = "artifacts/RESEARCH-REVIEW/rules.md"
+type = "file"
+user_modifiable = true
+description = "RESEARCH-REVIEW authoring and validation rules (incl. the per-flow conformance contract)"
+
+[[kits.resources]]
+id = "research_review_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/RESEARCH-REVIEW/checklist.md"
+install_path = "artifacts/RESEARCH-REVIEW/checklist.md"
+type = "file"
+user_modifiable = true
+description = "RESEARCH-REVIEW semantic review checklist"
+
+[[kits.resources]]
+id = "research_review_example"
+kind = "other"
+source = "kits/compete/artifacts/RESEARCH-REVIEW/examples/example.md"
+install_path = "artifacts/RESEARCH-REVIEW/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "RESEARCH-REVIEW example artifact"
+
+[[kits.resources]]
+id = "workflow_run"
+kind = "skill"
+source = "kits/compete/workflows/run.md"
+install_path = "workflows/run.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Run the full pipeline in express mode: one plan decision, autonomous execution, audited result"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "workflow_review"
+kind = "skill"
+source = "kits/compete/workflows/review.md"
+install_path = "workflows/review.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Audit a research run's artifact set for conformance, coverage, and informativeness"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "feature_taxonomy_template"
+kind = "template"
+source = "kits/compete/artifacts/FEATURE-TAXONOMY/template.md"
+install_path = "artifacts/FEATURE-TAXONOMY/template.md"
+type = "file"
+user_modifiable = true
+description = "FEATURE-TAXONOMY artifact template"
+
+[[kits.resources]]
+id = "feature_taxonomy_rules"
+kind = "other"
+source = "kits/compete/artifacts/FEATURE-TAXONOMY/rules.md"
+install_path = "artifacts/FEATURE-TAXONOMY/rules.md"
+type = "file"
+user_modifiable = true
+description = "FEATURE-TAXONOMY authoring and validation rules"
+
+[[kits.resources]]
+id = "feature_taxonomy_checklist"
+kind = "checklist"
+source = "kits/compete/artifacts/FEATURE-TAXONOMY/checklist.md"
+install_path = "artifacts/FEATURE-TAXONOMY/checklist.md"
+type = "file"
+user_modifiable = true
+description = "FEATURE-TAXONOMY semantic review checklist"
+
+[[kits.resources]]
+id = "feature_taxonomy_example"
+kind = "other"
+source = "kits/compete/artifacts/FEATURE-TAXONOMY/examples/example.md"
+install_path = "artifacts/FEATURE-TAXONOMY/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "FEATURE-TAXONOMY example artifact"
+
+[[kits.resources]]
+id = "workflow_taxonomy"
+kind = "skill"
+source = "kits/compete/workflows/taxonomy.md"
+install_path = "workflows/taxonomy.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Normalize a comparison frame's rows as a union-derived feature taxonomy"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "skill"
+kind = "skill"
+source = "kits/compete/SKILL.md"
+install_path = "SKILL.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Kit SKILL.md for agent navigation and workflow routing"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "constraints"
+kind = "constraints"
+source = "kits/compete/constraints.toml"
+install_path = "constraints.toml"
+type = "file"
+user_modifiable = false
+description = "Kit structural constraints (heading outlines, ID kinds, cross-references)"
+
+[kits.resources.artifacts]
+[kits.resources.artifacts."RESEARCH-REQUEST"]
+template = "research_request_template"
+examples = "research_request_example"
+
+[kits.resources.artifacts."CANDIDATE-REGISTER"]
+template = "candidate_register_template"
+examples = "candidate_register_example"
+
+[kits.resources.artifacts."ORIENTATION-CARD"]
+template = "orientation_card_template"
+examples = "orientation_card_example"
+
+[kits.resources.artifacts."COMPANY-PROFILE"]
+template = "company_profile_template"
+examples = "company_profile_example"
+
+[kits.resources.artifacts."COMPANY-DOSSIER"]
+template = "company_dossier_template"
+examples = "company_dossier_example"
+
+[kits.resources.artifacts."COMPARISON-MATRIX"]
+template = "comparison_matrix_template"
+examples = "comparison_matrix_example"
+
+[kits.resources.artifacts."OSS-REVIEW"]
+template = "oss_review_template"
+examples = "oss_review_example"
+
+[kits.resources.artifacts."MECHANISM-STUDY"]
+template = "mechanism_study_template"
+examples = "mechanism_study_example"
+
+[kits.resources.artifacts."WATCH-REPORT"]
+template = "watch_report_template"
+examples = "watch_report_example"
+
+[kits.resources.artifacts."RESEARCH-REVIEW"]
+template = "research_review_template"
+examples = "research_review_example"
+
+[kits.resources.artifacts."FEATURE-TAXONOMY"]
+template = "feature_taxonomy_template"
+examples = "feature_taxonomy_example"
+
+[[kits.resources]]
+id = "agents"
+kind = "rule"
+source = "kits/compete/agents-res.md"
+install_path = "AGENTS.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Kit AGENTS.md for agent integration entry points"
+generated_targets = ["installed"]

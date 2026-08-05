@@ -1,0 +1,13 @@
+Find direct, adjacent, and emerging competitors to OpenSpec.
+
+Decision use: select a small peer set for later evidence collection; do not make a feature-parity or buy/build decision.
+
+Scope: repository-native, specification-led products and frameworks. Include a nearby planning-to-coding-agent product only when its relationship is explicitly labelled adjacent.
+
+Comparison frame: explore, propose, specification/design/tasks, apply, validate, sync, and archive.
+
+Depth: discovery scan.
+
+Requested output: a source-backed candidate register with a recommended next action for each candidate.
+
+Evidence boundary: retained public sources only; evidence cutoff 2026-07-17.
