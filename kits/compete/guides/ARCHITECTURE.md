@@ -9,11 +9,12 @@ natural-language research ask
   → cf-compete-discover → CANDIDATE-REGISTER          (Flow 2)
   → cf-compete-profile  → COMPANY-PROFILE             (Flow 4)
   → cf-compete-dossier  → COMPANY-DOSSIER             (Flow 5)
-  → cf-compete-compare  → COMPARISON-MATRIX           (Flow 6)
+  → cf-compete-taxonomy → FEATURE-TAXONOMY            (normalization contract for Flow 6)
+  → cf-compete-compare  → COMPARISON-MATRIX           (Flow 6, taxonomy-bound)
 ```
 
-Flows 2–6 arrive in kit versions after 0.1.0; this guide describes the target
-architecture so each increment lands in a stable frame.
+All nine flows ship in the current kit version; this guide describes the
+architecture frame they land in.
 
 ## Two ID families, two validators
 

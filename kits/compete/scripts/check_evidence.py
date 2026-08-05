@@ -117,7 +117,8 @@ def check_index(evidence_dir: Path, f: Findings) -> dict[str, str]:
         return known
     header, rows = read_tsv(index_path)
     if header != INDEX_HEADER:
-        f.error(index_path, f"header must be exactly: {'\t'.join(INDEX_HEADER)}")
+        expected = "\t".join(INDEX_HEADER)
+        f.error(index_path, f"header must be exactly: {expected}")
         return known
     for n, row in enumerate(rows, start=2):
         where = f"row {n}"
@@ -155,7 +156,8 @@ def split_evd_refs(field: str) -> list[str]:
 def check_facts_file(path: Path, known: dict[str, str], f: Findings) -> None:
     header, rows = read_tsv(path)
     if header != FACTS_HEADER:
-        f.error(path, f"header must be exactly the 12 fact-ledger columns: {'\t'.join(FACTS_HEADER)}")
+        expected = "\t".join(FACTS_HEADER)
+        f.error(path, f"header must be exactly the 12 fact-ledger columns: {expected}")
         return
     seen_ids: set[str] = set()
     for n, row in enumerate(rows, start=2):

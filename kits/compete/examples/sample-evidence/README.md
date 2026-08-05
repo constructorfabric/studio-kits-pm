@@ -4,8 +4,8 @@ A minimal, self-contained retained-evidence set used by the kit's examples and
 CI. It mirrors the project-side layout the kit expects under `competitive/`:
 
 ```
-evidence/index.tsv        # canonical EVD ledger: EVD-358 … EVD-364
-evidence/extracts/…       # one bundle extract covering all seven sources
+evidence/index.tsv        # canonical EVD ledger: EVD-358 … EVD-364 + EVD-141 … EVD-144
+evidence/extracts/…       # one bundle extract (seven sources) + four single-page ai-sdlc extracts
 companies/COMP-073-openspec/facts.tsv   # 12-column fact ledger citing those EVD ids
 request.txt               # the natural-language research request (Flow 1 input)
 ```

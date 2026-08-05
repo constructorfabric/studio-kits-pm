@@ -31,6 +31,7 @@ import html
 import os
 import re
 import sys
+import urllib.parse
 from pathlib import Path
 
 ID_LINE_RE = re.compile(r"\*\*ID\*\*:\s*`(cpt-[a-z0-9-]+)`")
@@ -52,14 +53,18 @@ STYLE = (
     "td.s-not_observed{background:#f4f6f9;color:#8491a4}"
     "td.s-not_comparable{background:#fff4e2;color:#a85c04}"
     "td a{color:inherit;text-decoration:none;border-bottom:1px dotted}"
-    ".tabs input[type=radio]{display:none}"
+    # Radios stay focusable for keyboard tab selection; hidden visually only.
+    ".tabs input[type=radio]{position:absolute;width:1px;height:1px;"
+    "opacity:0;pointer-events:none}"
     ".tabs>label{display:inline-block;padding:7px 12px;margin:0 6px 10px 0;"
     "border:1px solid #c9d7eb;border-radius:7px;cursor:pointer;"
     "font:700 11px/1 ui-monospace,monospace;color:#345174;background:#fff}"
     ".panel{display:none}"
     + "".join(
-        f".tabs input:nth-of-type({i})~label:nth-of-type({i})"
+        f".tabs input:nth-of-type({i}):checked~label:nth-of-type({i})"
         "{background:#172033;color:#fff;border-color:#172033}"
+        f".tabs input:nth-of-type({i}):focus-visible~label:nth-of-type({i})"
+        "{outline:2px solid #345174;outline-offset:2px}"
         f".tabs input:nth-of-type({i}):checked~.panel:nth-of-type({i})"
         "{display:block}"
         for i in range(1, 13)
@@ -134,13 +139,19 @@ def parse_matrix(path: Path) -> dict:
     return {"path": path, "title": title, "rows": rows}
 
 
+def safe_href(locator: str) -> str:
+    """Only http(s) URLs and scheme-less relative paths become hrefs."""
+    scheme = urllib.parse.urlsplit(locator).scheme
+    return locator if scheme in ("http", "https", "") else ""
+
+
 def load_locators(evidence_dir: Path) -> dict[str, str]:
     locators: dict[str, str] = {}
     index = evidence_dir / "index.tsv"
     if index.is_file():
         for line in index.read_text(encoding="utf-8").splitlines()[1:]:
             cells = line.split("\t")
-            if len(cells) >= 2:
+            if len(cells) >= 2 and safe_href(cells[1]):
                 locators[cells[0]] = cells[1]
     return locators
 

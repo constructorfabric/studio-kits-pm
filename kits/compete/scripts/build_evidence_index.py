@@ -222,9 +222,11 @@ def main() -> int:
             referenced.update(harvest_fact_refs(path))
 
     additions: list[Candidate] = []
-    # Reserve numbers already cited by fact ledgers so a fresh assignment can
-    # never collide with an id that awaits its manual mapping row.
-    next_n = max([max_n] + [int(ref.split("-")[1]) for ref in referenced])
+    # Reserve numbers already cited by fact ledgers and carried by harvested
+    # extracts so a fresh assignment can never collide with either.
+    reserved = [int(ref.split("-")[1]) for ref in referenced]
+    reserved += [int(c.evd_id.split("-")[1]) for c in candidates if c.evd_id]
+    next_n = max([max_n] + reserved)
     for cand in candidates:
         if cand.evd_id and cand.evd_id in known_ids:
             continue
@@ -272,8 +274,11 @@ def main() -> int:
                 ]) + "\n")
     for src, dest in copied:
         dest.parent.mkdir(parents=True, exist_ok=True)
-        if not dest.exists():
-            shutil.copy2(src, dest)
+        if dest.exists():
+            print(f"WARN {src}: {dest} already exists; not overwritten "
+                  "(rename the source to keep extract basenames unique)")
+            continue
+        shutil.copy2(src, dest)
 
     print(f"wrote {len(additions)} new record(s)"
           + (f"; copied {len(copied)} extract(s)" if copied else ""))

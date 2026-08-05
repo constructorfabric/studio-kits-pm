@@ -104,6 +104,7 @@ instead of skipping silently.
 - [ ] All MUST NOT HAVE items verified absent
 - [ ] All issues documented with evidence and proposals
 - [ ] `cfs validate --artifact <path>` and `check_artifact_refs.py` report PASS
+- [ ] `cfs validate-toc <path>` reports PASS
 
 ## Reporting
 

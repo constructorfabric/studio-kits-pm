@@ -90,14 +90,12 @@ def find_artifact_by_id(artifacts_dir: Path, cpt_id: str) -> Path | None:
 
 def taxonomy_row_labels(text: str) -> list[str]:
     labels: list[str] = []
-    in_section = False
     for heading, body in split_sections(text):
         if "feature rows" in heading.lower():
             for row in table_rows(body):
                 if row:
                     labels.append(strip_cell(row[0]))
-            in_section = True
-    return labels if in_section else labels
+    return labels
 ISO_DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$")
 ABSENCE_RE = re.compile(

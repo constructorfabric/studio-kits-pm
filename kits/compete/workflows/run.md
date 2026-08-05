@@ -58,7 +58,7 @@ run report names — express first, depth on demand.
 
 ## Paths
 
-- **Orchestrated workflows**: `{workflow_request}`, `{workflow_capture}`, `{workflow_intake}`, `{workflow_discover}`, `{workflow_orient}`, `{workflow_profile}`, `{workflow_compare}`, `{workflow_review}` (and `{workflow_dossier}`, `{workflow_oss_review}`, `{workflow_mechanism}`, `{workflow_watch}` when the plan includes them)
+- **Orchestrated workflows**: `{workflow_request}`, `{workflow_capture}`, `{workflow_intake}`, `{workflow_discover}`, `{workflow_orient}`, `{workflow_profile}`, `{workflow_compare}`, `{workflow_review}` (and `{workflow_taxonomy}`, `{workflow_dossier}`, `{workflow_oss_review}`, `{workflow_mechanism}`, `{workflow_watch}` when the plan includes them; a planned COMPARISON-MATRIX implies `{workflow_taxonomy}` before it unless the plan records the user's explicit decline)
 - **Coverage reporter**: `{scripts}/check_coverage.py`
 - **Evidence dir**: `competitive/evidence/` (index.tsv + extracts/)
 - **Company fact ledgers**: `competitive/companies/`

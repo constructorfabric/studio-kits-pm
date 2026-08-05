@@ -74,7 +74,9 @@ extract formats.
 
 ## 4. Continue the pipeline
 
-Later kit versions add the research flows (`cf-compete-discover`,
-`cf-compete-profile`, `cf-compete-dossier`, `cf-compete-compare`). Each
+Continue with the research flows: `cf-compete-discover`,
+`cf-compete-profile`, `cf-compete-dossier`, and `cf-compete-compare`
+(plus `cf-compete-taxonomy` before a matrix and `cf-compete-run` for the
+express path). Each
 starts from a registered RESEARCH-REQUEST and cites indexed evidence — check
 with `cfs list-ids`.

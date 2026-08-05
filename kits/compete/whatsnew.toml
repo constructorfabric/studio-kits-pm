@@ -1,5 +1,16 @@
 # What's New — Competitive Analysis Kit
 
+[whatsnew."1.13.3"]
+summary = "Review-driven fixes from the public-repo import (PR review)"
+details = """\
+- check_evidence.py: header error messages no longer use a backslash inside an f-string expression, restoring Python 3.8-3.11 compatibility (SyntaxError before 3.12)
+- render_matrix_deck.py tabs: the active-tab style now requires :checked (previously every label rendered as active) and radios stay keyboard-focusable with a visible focus ring instead of display:none
+- render_matrix_deck.py: evidence locators become hrefs only for http(s) URLs and scheme-less relative paths; other schemes render as unlinked labels
+- build_evidence_index.py: explicit EVD ids harvested from extracts now reserve their numbers before fresh assignment, so one run can no longer emit a duplicate id; extract basename collisions are reported instead of silently skipped
+- cf-compete-run and ARCHITECTURE now name cf-compete-taxonomy in the orchestrated set: a planned COMPARISON-MATRIX implies a taxonomy before it unless the plan records the user's decline
+- Stale guide text updated (capture ships, all nine flows ship), the review example counts the request plus eight derived artifacts, both heavy checklists gained the cfs validate-toc gate, and the sample-evidence README documents the full shipped EVD range
+"""
+
 [whatsnew."1.13.2"]
 summary = "Express-gate hardening: the plan-approval question is un-skippable and audited"
 details = """\

@@ -3,7 +3,8 @@
 The kit's acceptance fixtures are the competitive-research flow examples
 (nine numbered folders: `01-define-research-request` …
 `09-watch-for-change`). This guide walks the shipped MVP flows against
-them. Everything below was exercised as the release gate for 1.0.0.
+them. Everything below was first exercised as the 1.0.0 release gate and
+stays green on the current kit version.
 
 ## Setup
 
@@ -130,5 +131,5 @@ fixtures the same way:
   pass over a fresh evidence drop produces the Detected Changes records the
   fixture's Material-change rule prescribes).
 
-Live web capture is a future intake surface — today the kit consumes
-retained-evidence folders.
+Live web capture ships as `cf-compete-capture` (see `guides/CAPTURE.md`);
+it feeds the same retained-evidence folders this demo consumes.

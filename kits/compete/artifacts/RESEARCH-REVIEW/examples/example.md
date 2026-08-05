@@ -27,7 +27,7 @@ This is a review of the run's artifact set, not a new research result: it
 adds no vendor claims or evidence, ranks nothing, and decides nothing —
 its findings are research routing for the requester.
 
-Under review: the nine artifacts derived from
+Under review: the request plus eight artifacts derived from
 `cpt-specs-req-openspec-peer-set` (register, orientation card, profile,
 dossier, comparison matrix, OSS review, mechanism study, watch baseline),
 verdicted against the kit's per-flow conformance contract and the
@@ -39,7 +39,8 @@ request's requested output, with the deterministic half backed by a
 - **Evidence cutoff**: 2026-07-18
 - **Access boundary**: the run's retained artifacts and evidence index only; no live sources were consulted
 - **Depth**: research review
-- **Completeness**: all nine derived artifacts were read in full;
+- **Completeness**: all nine artifacts — the request and its eight
+  derived artifacts — were read in full;
   `check_coverage.py` ran over the run directory with the sample evidence
   index and fact ledgers.
 
