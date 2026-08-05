@@ -32,7 +32,7 @@ DO:
   - RUN author Section 5 (Readable Conclusion) including the negative findings, Section 6 (Boundary), and Section 7 (Original Files)
   - SET ID cpt-{system}-cmp-{slug} for the matrix
   - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-cmp-{slug}` — {matrix title}" to the commissioning request's Traceability section, replacing its default no-derived-artifacts line when present
+  - RUN append the back-link "`cpt-{system}-cmp-{slug}` — {matrix title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
   - LOAD {comparison_matrix_checklist} for self-review of semantic quality
 
 RULES:

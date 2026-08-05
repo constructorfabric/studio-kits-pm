@@ -95,8 +95,10 @@ Load `{orientation_card_template}` and `{orientation_card_example}`. Follow
   labelled source classes and dates; important unknowns; original files.
 - Set the card ID `cpt-{system}-ori-{slug}`; verify uniqueness with
   `cfs list-ids`.
-- Append the back-link to the commissioning request's Traceability section
-  (replace its default no-derived-artifacts line when present).
+- Update the commissioning request's Traceability section idempotently:
+  append the back-link only when the ID is absent (replace the default
+  no-derived-artifacts line when present); a refresh updates the existing
+  line instead of duplicating it.
 
 ## Step 4: Deterministic gate
 

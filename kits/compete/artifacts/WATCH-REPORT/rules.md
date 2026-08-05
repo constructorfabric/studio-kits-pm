@@ -33,9 +33,9 @@ DO:
   - RUN in change-report mode: compare each field against the prior report's register and author Section 5 (Detected Changes) — one row per change with prior observation, current observation, ISO observed_on, why it matters to the research question, and evidence; when no field changed, keep the section with the explicit line "No material change was detected this pass."
   - RUN in baseline mode: author Section 5 with the explicit line "Baseline pass — no prior retained observation exists, so no change detection applies." and no table
   - RUN author Section 6 (Boundary) and Section 7 (Original Files)
-  - SET ID cpt-{system}-wat-{slug} for this pass (a new ID per pass; the register carries continuity)
+  - SET ID cpt-{system}-wat-{slug} for this pass, where {slug} carries a per-pass token — the pass date or a pass label (openspec-baseline, openspec-2026-10) — so every pass mints a distinct ID; the register carries continuity
   - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-wat-{slug}` — {report title}" to the commissioning request's Traceability section, replacing its default no-derived-artifacts line when present
+  - RUN append the back-link "`cpt-{system}-wat-{slug}` — {report title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
   - LOAD {watch_report_checklist} for self-review of semantic quality
 
 RULES:

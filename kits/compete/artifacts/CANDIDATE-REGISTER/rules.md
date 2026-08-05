@@ -26,7 +26,7 @@ DO:
   - RUN author Section 4 (Boundary) and Section 5 (Original Files)
   - SET ID cpt-{system}-reg-{slug} for the register
   - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-reg-{slug}` — {register title}" to the commissioning request's Traceability section, replacing its default no-derived-artifacts line when present
+  - RUN append the back-link "`cpt-{system}-reg-{slug}` — {register title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
   - LOAD {candidate_register_checklist} for self-review of semantic quality
 
 RULES:

@@ -33,8 +33,8 @@ DO:
   - RUN author Section 7 (What to Borrow — Product Hypothesis): zero or more entries, each with ID cpt-{system}-bor-{slug}, the named motivating mechanism, its evidence, and the explicit not-a-commitment sentence; when none qualified, state that explicitly
   - RUN author Section 8 (Open-Source Posture), Section 9 (Material Unknowns), Section 10 (Original Files)
   - SET ID cpt-{system}-prof-{slug} for the profile
-  - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-prof-{slug}` — {profile title}" to the commissioning request's Traceability section, replacing its default no-derived-artifacts line when present
+  - RUN verify ID uniqueness with cfs list-ids; when the ID already exists, this run is a refresh — update the registered artifact file in place (same ID, same registry entry, refreshed date frontmatter), never a second file with the same ID
+  - RUN append the back-link "`cpt-{system}-prof-{slug}` — {profile title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
   - LOAD {company_profile_checklist} for self-review of semantic quality
 
 RULES:

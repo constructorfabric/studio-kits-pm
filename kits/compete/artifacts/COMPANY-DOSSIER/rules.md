@@ -33,7 +33,7 @@ DO:
   - RUN author Section 8 (Original Files)
   - SET ID cpt-{system}-dos-{slug} for the dossier
   - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-dos-{slug}` — {dossier title}" to the commissioning request's Traceability section, replacing its default no-derived-artifacts line when present
+  - RUN append the back-link "`cpt-{system}-dos-{slug}` — {dossier title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
   - LOAD {company_dossier_checklist} for self-review of semantic quality
 
 RULES:
@@ -41,7 +41,7 @@ RULES:
   - ALWAYS keep the per-area negative space: every Documented Mechanics row states what remains unestablished, phrased as evidence limits
   - ALWAYS record source availability per class with the exact vocabulary; do not equate public documentation availability with feature availability
   - ALWAYS give the standard classes — documentation, pricing, finance/adoption at minimum — a Source Availability row even when nothing was captured (record it unavailable; grouped rows are fine)
-  - ALWAYS extend the company fact ledger with the newly observed time-sensitive facts this dossier cites
+  - ALWAYS extend the company fact ledger with the newly observed time-sensitive facts this dossier cites; on the direct-dossier path with no ledger, create and register one (intake) before the first time-sensitive fact is cited
   - ALWAYS distinguish observed facts, vendor claims, and third-party estimates in the wording, matching fact-ledger claim_status labels where a ledger exists
   - ALWAYS stay inside the request's access boundary; a gated or unavailable source is recorded as such, never summarized from memory
   - ALWAYS update the commissioning request's Traceability section in the same run

@@ -112,8 +112,10 @@ Follow `{comparison_matrix_rules}`:
   negative findings; the boundary; original files.
 - Set the matrix ID `cpt-{system}-cmp-{slug}`; verify uniqueness with
   `cfs list-ids`.
-- Append the back-link to the commissioning request's Traceability section
-  (replace its default no-derived-artifacts line when present).
+- Update the commissioning request's Traceability section idempotently:
+  append the back-link only when the ID is absent (replace the default
+  no-derived-artifacts line when present); a refresh updates the existing
+  line instead of duplicating it.
 
 ## Step 4: Deterministic gate
 

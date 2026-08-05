@@ -74,4 +74,4 @@ set does not establish. These are evidence limits, not absence claims.}
 ## 9. Traceability
 
 - Commissioned by: `cpt-{system}-req-{slug}` — {Research request title}
-- Expands: {`cpt-{system}-prof-{slug}` — {Company profile title}, when one exists}
+- Expands: {`cpt-{system}-prof-{slug}` — {Company profile title}; or the explicit line "no standard profile exists — the dossier was commissioned directly"}

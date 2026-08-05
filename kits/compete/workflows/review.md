@@ -122,8 +122,10 @@ Load `{research_review_template}` and `{research_review_example}`. Follow
   files including how the coverage report was produced.
 - Set the ID `cpt-{system}-rev-{slug}`; verify uniqueness with
   `cfs list-ids`.
-- Append the back-link to the commissioning request's Traceability section
-  (replace its default no-derived-artifacts line when present).
+- Update the commissioning request's Traceability section idempotently:
+  append the back-link only when the ID is absent (replace the default
+  no-derived-artifacts line when present); a refresh updates the existing
+  line instead of duplicating it.
 
 ## Step 6: Deterministic gate
 
