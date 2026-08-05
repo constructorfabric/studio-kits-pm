@@ -23,7 +23,7 @@ observation date, and an explicit boundary.
 
 ## Status
 
-Version 1.13.2 — all nine epic flows, the web intake surface with
+Version 1.13.3 — all nine epic flows, the web intake surface with
 search-assisted discovery and corpus capture mode, the quality loop
 (research review + coverage audit), the evidence-depth contract with the
 pricing benchmark view, the feature taxonomy with matrix binding and
@@ -61,9 +61,14 @@ research artifacts cite; see `guides/CAPTURE.md`.
 ## Install
 
 ```bash
-cfs kit install --path <path-to-this-repo>/kits/compete --install-mode copy
+cfs kit install constructorfabric/studio-kits-pm --kit compete
 cfs generate-agents
-cfs validate-kits kits/compete
+```
+
+For local development, from a clone of this repository:
+
+```bash
+cfs kit install --path <path-to-this-clone> --kit compete --install-mode copy
 ```
 
 Then register a system in `.cf-studio/config/artifacts.toml`:
@@ -103,7 +108,9 @@ guides/                     # QUICKSTART, ARCHITECTURE, EVIDENCE
 
 From the repository root:
 
-- `cfs validate-kits kits/compete` — kit structure + example self-checks
+- `cfs validate-kits .` — kit structure + example self-checks (the
+  canonical manifest lives at the repository root)
+- `cfs kit normalize --dry-run . --json` — manifest normalization check
 - `cfs pdsl validate kits/compete/workflows/*.md kits/compete/artifacts/*/rules.md` — prompt DSL lint
 - CI runs both plus TOML parsing, script compilation, and the kit's
   deterministic script checks on every PR

@@ -14,23 +14,35 @@ directory under `kits/` and installs independently.
 
 ## Install a kit
 
-From your Constructor Studio project:
+From your Constructor Studio project, straight from GitHub:
 
 ```bash
-cfs kit install --path <path-to-this-repo>/kits/<kit> --install-mode copy
+cfs kit install constructorfabric/studio-kits-pm --kit <kit>
 cfs generate-agents
+```
+
+Pin a release with `--version <tag-or-sha>`. `--kit` accepts one slug,
+a comma-separated list, or `all`. For local development, install from a
+clone instead:
+
+```bash
+cfs kit install --path <path-to-this-clone> --kit <kit> --install-mode copy
 ```
 
 See each kit's own `README.md` and `guides/QUICKSTART.md` for usage.
 
 ## Repository conventions
 
-- One kit per directory under `kits/<slug>/`; the directory name matches
-  the kit's `conf.toml` slug.
+- One kit per directory under `kits/<slug>/`; the repository-root
+  `.cf-studio-kit.toml` is the single canonical manifest — one `[[kits]]`
+  entry per kit, resource `source` paths repo-relative
+  (`kits/<slug>/...`), `install_path` project-relative. `cfs` reads it to
+  offer the kit selector on install.
 - Every kit is self-contained: no cross-kit imports, no shared code, and
   stdlib-only scripts, so a kit can be installed without the rest of the
   repository.
-- Every kit must pass `cfs validate-kits kits/<slug>` and
+- Every kit must pass `cfs validate-kits .`, `cfs kit normalize
+  --dry-run . --json`, and
   `cfs pdsl validate kits/<slug>/workflows/*.md kits/<slug>/artifacts/*/rules.md`.
 - CI validates all kits generically on every PR and runs each kit's own
   deterministic checks in a per-kit job.
@@ -38,9 +50,9 @@ See each kit's own `README.md` and `guides/QUICKSTART.md` for usage.
 ## Contributing
 
 Changes go through pull requests to `main`; CI must be green. When adding
-a kit, add its row to the table above and a per-kit job to
-`.github/workflows/ci.yml` if it ships deterministic checks beyond the
-generic gate.
+a kit, add its `[[kits]]` entry to the root `.cf-studio-kit.toml`, its
+row to the table above, and a per-kit job to `.github/workflows/ci.yml`
+if it ships deterministic checks beyond the generic gate.
 
 ## License
 

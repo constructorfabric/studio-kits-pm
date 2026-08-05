@@ -15,19 +15,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: TOML parses in every kit
+      - name: TOML parses (root manifest and every kit)
         run: |
           python3 - <<'PY'
           import pathlib, tomllib
+          root = pathlib.Path(".cf-studio-kit.toml")
+          data = tomllib.load(open(root, "rb"))
+          slugs = [k["slug"] for k in data["kits"]]
+          print("ok:", root, "kits:", ", ".join(slugs))
           kits = sorted(p for p in pathlib.Path("kits").iterdir() if p.is_dir())
           assert kits, "no kits found under kits/"
+          # Every kit directory must be declared in the root manifest.
+          missing = [k.name for k in kits if k.name not in slugs]
+          assert not missing, f"kits missing from root manifest: {missing}"
+          versions = {k["slug"]: k["version"] for k in data["kits"]}
           for kit in kits:
-              for name in ("conf.toml", ".cf-studio-kit.toml", "manifest.toml",
-                           "constraints.toml", "whatsnew.toml"):
+              for name in ("conf.toml", "constraints.toml", "whatsnew.toml"):
                   f = kit / name
                   if f.is_file():
-                      tomllib.load(open(f, "rb"))
+                      parsed = tomllib.load(open(f, "rb"))
                       print("ok:", f)
+                      if name == "conf.toml" and "version" in parsed:
+                          conf_v, manifest_v = parsed["version"], versions[kit.name]
+                          assert conf_v == manifest_v, (
+                              f"{f}: version {conf_v} != root manifest {manifest_v}")
           PY
       - name: Python scripts compile in every kit
         run: |
@@ -214,12 +225,10 @@ jobs:
         run: |
           pipx install git+https://github.com/constructorfabric/studio.git
           cfs --version
-      - name: validate-kits on every kit
-        run: |
-          for kit in kits/*/; do
-            echo "=== $kit ==="
-            cfs validate-kits "$kit"
-          done
+      - name: validate-kits against the root manifest
+        run: cfs validate-kits .
+      - name: kit normalize catches manifest errors
+        run: cfs kit normalize --dry-run . --json --kit all
       - name: pdsl validate on every kit
         run: |
           for kit in kits/*/; do

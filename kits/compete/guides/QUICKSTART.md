@@ -3,9 +3,8 @@
 ## 1. Install the kit
 
 ```bash
-cfs kit install --path <path-to-this-repo> --install-mode copy
+cfs kit install constructorfabric/studio-kits-pm --kit compete
 cfs generate-agents
-cfs validate-kits .
 ```
 
 Register a system in `.cf-studio/config/artifacts.toml`:
