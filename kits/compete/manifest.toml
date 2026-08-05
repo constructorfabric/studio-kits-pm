@@ -1,0 +1,539 @@
+# Constructor Studio Competitive Analysis Kit — Declarative Installation Manifest
+# Schema: kit-manifest.schema.json v1.0
+
+[manifest]
+version = "1.13.2"
+root = "{cf-studio-path}/config/kits/{slug}"
+user_modifiable = true
+
+# ── RESEARCH-REQUEST artifact files ───────────────────────────────────
+
+[[resources]]
+id = "research_request_template"
+description = "RESEARCH-REQUEST artifact template"
+source = "artifacts/RESEARCH-REQUEST/template.md"
+default_path = "artifacts/RESEARCH-REQUEST/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "research_request_rules"
+description = "RESEARCH-REQUEST authoring and validation rules"
+source = "artifacts/RESEARCH-REQUEST/rules.md"
+default_path = "artifacts/RESEARCH-REQUEST/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "research_request_checklist"
+description = "RESEARCH-REQUEST semantic review checklist"
+source = "artifacts/RESEARCH-REQUEST/checklist.md"
+default_path = "artifacts/RESEARCH-REQUEST/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "research_request_example"
+description = "RESEARCH-REQUEST example artifact"
+source = "artifacts/RESEARCH-REQUEST/examples/example.md"
+default_path = "artifacts/RESEARCH-REQUEST/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── CANDIDATE-REGISTER artifact files ─────────────────────────────────
+
+[[resources]]
+id = "candidate_register_template"
+description = "CANDIDATE-REGISTER artifact template"
+source = "artifacts/CANDIDATE-REGISTER/template.md"
+default_path = "artifacts/CANDIDATE-REGISTER/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "candidate_register_rules"
+description = "CANDIDATE-REGISTER authoring and validation rules"
+source = "artifacts/CANDIDATE-REGISTER/rules.md"
+default_path = "artifacts/CANDIDATE-REGISTER/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "candidate_register_checklist"
+description = "CANDIDATE-REGISTER semantic review checklist"
+source = "artifacts/CANDIDATE-REGISTER/checklist.md"
+default_path = "artifacts/CANDIDATE-REGISTER/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "candidate_register_example"
+description = "CANDIDATE-REGISTER example artifact"
+source = "artifacts/CANDIDATE-REGISTER/examples/example.md"
+default_path = "artifacts/CANDIDATE-REGISTER/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── ORIENTATION-CARD artifact files ───────────────────────────────────
+
+[[resources]]
+id = "orientation_card_template"
+description = "ORIENTATION-CARD artifact template"
+source = "artifacts/ORIENTATION-CARD/template.md"
+default_path = "artifacts/ORIENTATION-CARD/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "orientation_card_rules"
+description = "ORIENTATION-CARD authoring and validation rules"
+source = "artifacts/ORIENTATION-CARD/rules.md"
+default_path = "artifacts/ORIENTATION-CARD/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "orientation_card_checklist"
+description = "ORIENTATION-CARD semantic review checklist"
+source = "artifacts/ORIENTATION-CARD/checklist.md"
+default_path = "artifacts/ORIENTATION-CARD/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "orientation_card_example"
+description = "ORIENTATION-CARD example artifact"
+source = "artifacts/ORIENTATION-CARD/examples/example.md"
+default_path = "artifacts/ORIENTATION-CARD/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── COMPANY-PROFILE artifact files ────────────────────────────────────
+
+[[resources]]
+id = "company_profile_template"
+description = "COMPANY-PROFILE artifact template"
+source = "artifacts/COMPANY-PROFILE/template.md"
+default_path = "artifacts/COMPANY-PROFILE/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "company_profile_rules"
+description = "COMPANY-PROFILE authoring and validation rules"
+source = "artifacts/COMPANY-PROFILE/rules.md"
+default_path = "artifacts/COMPANY-PROFILE/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "company_profile_checklist"
+description = "COMPANY-PROFILE semantic review checklist"
+source = "artifacts/COMPANY-PROFILE/checklist.md"
+default_path = "artifacts/COMPANY-PROFILE/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "company_profile_example"
+description = "COMPANY-PROFILE example artifact"
+source = "artifacts/COMPANY-PROFILE/examples/example.md"
+default_path = "artifacts/COMPANY-PROFILE/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── COMPANY-DOSSIER artifact files ────────────────────────────────────
+
+[[resources]]
+id = "company_dossier_template"
+description = "COMPANY-DOSSIER artifact template"
+source = "artifacts/COMPANY-DOSSIER/template.md"
+default_path = "artifacts/COMPANY-DOSSIER/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "company_dossier_rules"
+description = "COMPANY-DOSSIER authoring and validation rules"
+source = "artifacts/COMPANY-DOSSIER/rules.md"
+default_path = "artifacts/COMPANY-DOSSIER/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "company_dossier_checklist"
+description = "COMPANY-DOSSIER semantic review checklist"
+source = "artifacts/COMPANY-DOSSIER/checklist.md"
+default_path = "artifacts/COMPANY-DOSSIER/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "company_dossier_example"
+description = "COMPANY-DOSSIER example artifact"
+source = "artifacts/COMPANY-DOSSIER/examples/example.md"
+default_path = "artifacts/COMPANY-DOSSIER/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── WATCH-REPORT artifact files ───────────────────────────────────────
+
+[[resources]]
+id = "watch_report_template"
+description = "WATCH-REPORT artifact template"
+source = "artifacts/WATCH-REPORT/template.md"
+default_path = "artifacts/WATCH-REPORT/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "watch_report_rules"
+description = "WATCH-REPORT authoring and validation rules"
+source = "artifacts/WATCH-REPORT/rules.md"
+default_path = "artifacts/WATCH-REPORT/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "watch_report_checklist"
+description = "WATCH-REPORT semantic review checklist"
+source = "artifacts/WATCH-REPORT/checklist.md"
+default_path = "artifacts/WATCH-REPORT/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "watch_report_example"
+description = "WATCH-REPORT example artifact"
+source = "artifacts/WATCH-REPORT/examples/example.md"
+default_path = "artifacts/WATCH-REPORT/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── MECHANISM-STUDY artifact files ────────────────────────────────────
+
+[[resources]]
+id = "mechanism_study_template"
+description = "MECHANISM-STUDY artifact template"
+source = "artifacts/MECHANISM-STUDY/template.md"
+default_path = "artifacts/MECHANISM-STUDY/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "mechanism_study_rules"
+description = "MECHANISM-STUDY authoring and validation rules"
+source = "artifacts/MECHANISM-STUDY/rules.md"
+default_path = "artifacts/MECHANISM-STUDY/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "mechanism_study_checklist"
+description = "MECHANISM-STUDY semantic review checklist"
+source = "artifacts/MECHANISM-STUDY/checklist.md"
+default_path = "artifacts/MECHANISM-STUDY/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "mechanism_study_example"
+description = "MECHANISM-STUDY example artifact"
+source = "artifacts/MECHANISM-STUDY/examples/example.md"
+default_path = "artifacts/MECHANISM-STUDY/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── OSS-REVIEW artifact files ─────────────────────────────────────────
+
+[[resources]]
+id = "oss_review_template"
+description = "OSS-REVIEW artifact template"
+source = "artifacts/OSS-REVIEW/template.md"
+default_path = "artifacts/OSS-REVIEW/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "oss_review_rules"
+description = "OSS-REVIEW authoring and validation rules"
+source = "artifacts/OSS-REVIEW/rules.md"
+default_path = "artifacts/OSS-REVIEW/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "oss_review_checklist"
+description = "OSS-REVIEW semantic review checklist"
+source = "artifacts/OSS-REVIEW/checklist.md"
+default_path = "artifacts/OSS-REVIEW/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "oss_review_example"
+description = "OSS-REVIEW example artifact"
+source = "artifacts/OSS-REVIEW/examples/example.md"
+default_path = "artifacts/OSS-REVIEW/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── COMPARISON-MATRIX artifact files ──────────────────────────────────
+
+[[resources]]
+id = "comparison_matrix_template"
+description = "COMPARISON-MATRIX artifact template"
+source = "artifacts/COMPARISON-MATRIX/template.md"
+default_path = "artifacts/COMPARISON-MATRIX/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "comparison_matrix_rules"
+description = "COMPARISON-MATRIX authoring and validation rules"
+source = "artifacts/COMPARISON-MATRIX/rules.md"
+default_path = "artifacts/COMPARISON-MATRIX/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "comparison_matrix_checklist"
+description = "COMPARISON-MATRIX semantic review checklist"
+source = "artifacts/COMPARISON-MATRIX/checklist.md"
+default_path = "artifacts/COMPARISON-MATRIX/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "comparison_matrix_example"
+description = "COMPARISON-MATRIX example artifact"
+source = "artifacts/COMPARISON-MATRIX/examples/example.md"
+default_path = "artifacts/COMPARISON-MATRIX/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── RESEARCH-REVIEW artifact files ────────────────────────────────────
+
+[[resources]]
+id = "research_review_template"
+description = "RESEARCH-REVIEW artifact template"
+source = "artifacts/RESEARCH-REVIEW/template.md"
+default_path = "artifacts/RESEARCH-REVIEW/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "research_review_rules"
+description = "RESEARCH-REVIEW authoring and validation rules (incl. the per-flow conformance contract)"
+source = "artifacts/RESEARCH-REVIEW/rules.md"
+default_path = "artifacts/RESEARCH-REVIEW/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "research_review_checklist"
+description = "RESEARCH-REVIEW semantic review checklist"
+source = "artifacts/RESEARCH-REVIEW/checklist.md"
+default_path = "artifacts/RESEARCH-REVIEW/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "research_review_example"
+description = "RESEARCH-REVIEW example artifact"
+source = "artifacts/RESEARCH-REVIEW/examples/example.md"
+default_path = "artifacts/RESEARCH-REVIEW/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── FEATURE-TAXONOMY artifact files ───────────────────────────────────
+
+[[resources]]
+id = "feature_taxonomy_template"
+description = "FEATURE-TAXONOMY artifact template"
+source = "artifacts/FEATURE-TAXONOMY/template.md"
+default_path = "artifacts/FEATURE-TAXONOMY/template.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "feature_taxonomy_rules"
+description = "FEATURE-TAXONOMY authoring and validation rules"
+source = "artifacts/FEATURE-TAXONOMY/rules.md"
+default_path = "artifacts/FEATURE-TAXONOMY/rules.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "feature_taxonomy_checklist"
+description = "FEATURE-TAXONOMY semantic review checklist"
+source = "artifacts/FEATURE-TAXONOMY/checklist.md"
+default_path = "artifacts/FEATURE-TAXONOMY/checklist.md"
+type = "file"
+user_modifiable = true
+
+[[resources]]
+id = "feature_taxonomy_example"
+description = "FEATURE-TAXONOMY example artifact"
+source = "artifacts/FEATURE-TAXONOMY/examples/example.md"
+default_path = "artifacts/FEATURE-TAXONOMY/examples/example.md"
+type = "file"
+user_modifiable = true
+
+# ── Workflows ─────────────────────────────────────────────────────────
+
+[[resources]]
+id = "workflow_taxonomy"
+description = "Normalize a comparison frame's rows as a union-derived feature taxonomy"
+source = "workflows/taxonomy.md"
+default_path = "workflows/taxonomy.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_run"
+description = "Run the full pipeline in express mode: one plan decision, autonomous execution, audited result"
+source = "workflows/run.md"
+default_path = "workflows/run.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_review"
+description = "Audit a research run's artifact set for conformance, coverage, and informativeness"
+source = "workflows/review.md"
+default_path = "workflows/review.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_watch"
+description = "Establish or run a competitive watch pass (Flow 9)"
+source = "workflows/watch.md"
+default_path = "workflows/watch.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_mechanism"
+description = "Study one mechanism or product gap (Flow 8) across documented analogues"
+source = "workflows/mechanism.md"
+default_path = "workflows/mechanism.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_oss_review"
+description = "Review open-source posture and alternative implementations (Flow 7)"
+source = "workflows/oss-review.md"
+default_path = "workflows/oss-review.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_orient"
+description = "Produce a short company orientation card (Flow 3)"
+source = "workflows/orient.md"
+default_path = "workflows/orient.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_compare"
+description = "Compare selected companies under exactly one frame (Flow 6)"
+source = "workflows/compare.md"
+default_path = "workflows/compare.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_dossier"
+description = "Create a deep company dossier (Flow 5) expanding the standard profile with retained evidence"
+source = "workflows/dossier.md"
+default_path = "workflows/dossier.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_profile"
+description = "Create a standard source-backed company profile (Flow 4)"
+source = "workflows/profile.md"
+default_path = "workflows/profile.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_discover"
+description = "Build a candidate competitor register (Flow 2) from a research request and indexed evidence"
+source = "workflows/discover.md"
+default_path = "workflows/discover.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_capture"
+description = "Capture live public web pages into retained extracts and index them (the web intake surface)"
+source = "workflows/capture.md"
+default_path = "workflows/capture.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_intake"
+description = "Build or extend the competitive evidence ledger from a folder of retained evidence"
+source = "workflows/intake.md"
+default_path = "workflows/intake.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "workflow_request"
+description = "Create a structured competitive-research request (Flow 1)"
+source = "workflows/request.md"
+default_path = "workflows/request.md"
+type = "file"
+user_modifiable = false
+
+# ── Scripts ───────────────────────────────────────────────────────────
+
+[[resources]]
+id = "scripts"
+description = "Deterministic evidence tooling (build_evidence_index.py, check_evidence.py)"
+source = "scripts"
+default_path = "scripts"
+type = "directory"
+user_modifiable = true
+
+[[resources]]
+id = "guides"
+description = "Kit method guides (QUICKSTART, ARCHITECTURE, EVIDENCE, CAPTURE, DEMO) — the capture workflow requires guides/CAPTURE.md and guides/EVIDENCE.md at runtime"
+source = "guides"
+default_path = "guides"
+type = "directory"
+user_modifiable = true
+
+# ── Kit surface ───────────────────────────────────────────────────────
+
+[[resources]]
+id = "skill"
+description = "Kit SKILL.md for agent navigation and workflow routing"
+source = "SKILL.md"
+default_path = "SKILL.md"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "constraints"
+description = "Kit structural constraints (heading outlines, ID kinds, cross-references)"
+source = "constraints.toml"
+default_path = "constraints.toml"
+type = "file"
+user_modifiable = false
+
+[[resources]]
+id = "agents"
+description = "Kit AGENTS.md for agent integration entry points"
+source = "agents-res.md"
+default_path = "AGENTS.md"
+type = "file"
+user_modifiable = false

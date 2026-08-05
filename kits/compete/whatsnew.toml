@@ -1,0 +1,199 @@
+# What's New — Competitive Analysis Kit
+
+[whatsnew."1.13.2"]
+summary = "Express-gate hardening: the plan-approval question is un-skippable and audited"
+details = """\
+- A field session showed an agent running cf-compete-run end to end with zero questions: the run-plan gate was skippable because 'approved run plan' never said approved by whom, the workflow description promised 'minimal questions', and the Step 2 STOP clause covered mode choice rather than turn control
+- SKILL express semantics now define approval: a plan is approved only when the user answers the run-plan gate; an agent-drafted plan is not approved, and a zero-question express run is a protocol violation, not express mode
+- cf-compete-run: the description says 'asks exactly one plan-approval question first'; Step 2 carries an explicit 'STOP — end the turn after presenting the plan' (the target appearing in the user's message approves nothing); the run log's first entry must record the user's approval (turn and option)
+- Anti-silence: Step 3 forbids executing more than one orchestrated workflow without emitting its checkpoint line
+- Audit backstop: cf-compete-review reads the run log and reports a missing approval record as a high-severity protocol-violation finding; CI greps guard all three guardrail phrases against regression\
+"""
+
+[whatsnew."1.13.1"]
+summary = "Bugfix: heatmap cells link relative to the heatmap file, not the invocation directory"
+details = """\
+- render_matrix_deck.py --mode heatmap wrote matrix-export hrefs as invocation-relative paths, so a heatmap served from its own exports directory produced doubled paths (exports/research/.../exports/...) and dead links — caught reviewing the PM-validation deck in a browser
+- Hrefs are now computed relative to the output file (os.path.relpath); written into the matrices' exports directory the href is the bare export filename; CI asserts the standard layout\
+"""
+
+[whatsnew."1.13.0"]
+summary = "Matrices inherit the taxonomy: rows ⊆ taxonomy enforced, PM-grade density measured, tabbed and heatmap deck views"
+details = """\
+- COMPARISON-MATRIX binds to its frame's FEATURE-TAXONOMY via the frontmatter taxonomy: key; check_artifact_refs.py (new --artifacts-dir flag) resolves the declared taxonomy and enforces both directions deterministically — every matrix feature label must start with a taxonomy row label (detail after a colon), and every taxonomy row must appear in the matrix (not_observed where evidence lacks, never dropped); an undeclared taxonomy is a visible warning, allowed only on the user's explicit say-so
+- check_coverage.py reports matrix density: distinct feature rows per matrix with a soft 8-row floor — the review flags 4-feature matrices the way PM feedback did
+- New scripts/render_matrix_deck.py: two script-free presentation views over one or more matrices — tabbed role frames (CSS-only tabs; cells link to the retained source locator) and the companies × frames heatmap (cells aggregate statuses and link to the matrix export); both restate matrix statuses only, no ranking
+- The shipped comparison example is rebound to the shipped taxonomy: 10 rows × 2 companies (20 cells, 7 honest not_observed) whose complementary pattern shows the anti-anchor property in the artifact itself
+- Addresses PM feedback parts 1+3 end-to-end with 1.11.0/1.12.0: taxonomy carrier -> corpus depth -> dense taxonomy-bound matrices in the deck formats the PM built by hand\
+"""
+
+[whatsnew."1.12.0"]
+summary = "Corpus capture: deep digging with an enumerated, budgeted, cut-list-visible documentation sweep"
+details = """\
+- cf-compete-capture gains corpus mode: when the plan targets a subject's documentation rather than named pages, candidate URLs are enumerated from the site's own surfaces (sitemap.xml, docs index/navigation, changelog) — never guessed — ranked by information value, and fetched up to the plan's per-subject page budget; every enumerated-but-cut page appears in the capture log with its reason
+- Corpus retention uses the existing bundle extract shape (one bundle per subject, one section per page, one EVD-### per bundled URL via intake) so citations stay page-precise while the corpus stays one file; claim-boundedness, failure logging, and the access boundary apply per section exactly as per page
+- guides/CAPTURE.md documents the policy and its motivation: feature inventories built from one landing page anchor every later comparison — the mined corpus is the anchor-bias defence cf-compete-taxonomy consumes
+- The express run plan (cf-compete-run) carries the corpus budget as a plan field; the dossier prerequisite expects corpus depth; taxonomy routes missing corpora to corpus-mode capture
+- Addresses PM feedback part 2 of 4: "не хватает глубокого копания, когда выкачивается вся документация, а потом ищем инсайты"\
+"""
+
+[whatsnew."1.11.0"]
+summary = "FEATURE-TAXONOMY: the apples-to-apples contract — union-derived comparison rows with vendor aliases and an anchor-bias audit"
+details = """\
+- New FEATURE-TAXONOMY artifact kind (tax): the normalization contract matrices compare against — 8-20 decidable rows per frame (definition + inclusion criterion two analysts would apply identically), a verbatim per-vendor alias map, and a Union Provenance section proving the row set is the union of every compared vendor's independently mined inventory plus the requester frames, never the first vendors' feature list
+- Iron rules against anchor bias (the failure mode PM feedback identified): a row set derived from a subset of vendors is CRITICAL; a candidate row dropped because early-mined vendors carry no evidence is CRITICAL; single-source rows are the point, not noise; row inclusion is never a capability claim
+- New scripts/mine_terms.py (stdlib): harvest mode surfaces candidate feature terms per subject (single-subject terms flagged — exactly what anchoring loses); coverage mode verifies every taxonomy row (via label or aliases) and every alias against the extract corpus with a stable summary line
+- New cf-compete-taxonomy workflow (progress-protocol conventions: 7 steps, 1 decision): mine the union -> confirm the design -> author -> deterministic gate (cardinality band warning in check_artifact_refs) -> corpus-coverage gate -> exports -> present
+- check_artifact_refs/render_views/check_coverage know the tax kind; hermetic OpenSpec example demonstrates the anti-anchor property: four of its ten rows exist only in the second vendor's corpus\
+"""
+
+[whatsnew."1.10.0"]
+summary = "cf-compete-run: the express golden path — one plan decision, autonomous execution, an audited result"
+details = """\
+- New cf-compete-run orchestrator: assembles everything the guided pipeline would ask (all eight request fields, capture and discovery approach, per-classification depth policy, comparison frame) into one upfront run plan — a single decision gate — then executes request -> capture -> intake -> discover -> per-lead follow-ups -> comparison -> review autonomously
+- Express gate semantics (defined in the SKILL progress protocol): confirmation gates auto-proceed with their option-1 recommendation and are logged to the run report; decision gates are answered from the approved plan; only a decision the plan does not cover surfaces, as a counted exception
+- Nothing epistemic is relaxed: every deterministic gate runs unchanged, capture failures are recorded (never asked about), the access boundary still gates every fetch, and the closing RESEARCH-REVIEW audits the whole run — the quality loop is what makes upfront-only questioning safe
+- Guided workflows stay the default; invoking the orchestrator is the express opt-in, and the run report names the guided workflow for every recommended extension
+- Together with 1.9.0 this addresses the tester-session finding end to end: 27 turns with 17 menu picks become roughly 3 (plan, closing confirmation, and any real exception)\
+"""
+
+[whatsnew."1.9.0"]
+summary = "Progress protocol and gate typology: the user always knows their position, the questions ahead, and what a bare '1' means"
+details = """\
+- New SKILL.md progress protocol, piloted in this kit as the candidate convention for cf-studio core: announce the workflow's Route before Step 1 (steps, questions ahead with types, outputs), prefix every question with [cf-compete-<name> · step k/N · questions left: M], present every gate as numbered options with the recommendation as option 1, checkpoint after the deterministic gate
+- Every workflow now carries a ## Route block and every user gate is typed: decision (shapes the research question — the workflow waits) or confirmation (a derived recommendation — proceeds on a bare confirmation); recovery never asks: environment and validator failures are fixed or honestly recorded per ON_ERROR and reported at the next checkpoint
+- Question batching: cf-compete-compare merged its three sequential gates (frame, compared set, row labels) into one comparison-design decision; cf-compete-discover merged request confirmation, widening, and candidate classification into one discovery-design decision — the full request → capture → intake → discover path now carries 2 decisions instead of 13 stops
+- CI enforces the conventions: no untyped gate, a Route block in every workflow, the protocol section in SKILL.md
+- Motivated by the first external tester session: 17 of 27 user turns were menu picks, 12 of them the literal '1'\
+"""
+
+[whatsnew."1.8.1"]
+summary = "Bugfixes from the first external tester session: guides ship with the kit; kind detection survives hyphenated system slugs"
+details = """\
+- The guides/ directory is now a declared kit resource in both manifests: cf-compete-capture requires guides/CAPTURE.md and guides/EVIDENCE.md at runtime, but installed kits did not contain them — the tester's capture pass was blocked until the agent reconstructed the files by hand
+- check_artifact_refs.py and render_views.py detect the artifact kind by scanning the ID for a known kind token instead of assuming a fixed position: a hyphenated {system} slug (cpt-my-long-system-req-…) previously made render_views fail visibly ("no CSV view") and — worse — made check_artifact_refs silently skip every kind-specific epistemic check; an ID with no recognizable kind is now a loud error
+- The request-back-link check is kind-aware for the same reason (it previously required a hyphen-free system slug)
+- CI covers both regressions: a hyphenated-slug register must pass the checker and render, an unknown-kind ID must fail loudly\
+"""
+
+[whatsnew."1.8.0"]
+summary = "Evidence-depth contract: source-class capture statuses, the fact-ledger step, the pricing benchmark view, and named matrix exclusions"
+details = """\
+- COMPANY-PROFILE Evidence Scope now carries a capture status per standard source class (landing, pricing, docs, repository, corporate/finance: captured | failed | gated | deferred) — enforced by check_artifact_refs.py, so a cheap-to-capture missing class is a visible routing signal, never a silent omission; COMPANY-DOSSIER's Source Availability must cover documentation, pricing, and finance/adoption even when uncaptured
+- The profile workflow gains an explicit fact-ledger step: time-sensitive observations (pricing, promos, maturity labels, funding) are ledgered with claim_status/observed_on/limitation before authoring, giving the next watch or profile pass its as-of history; the dossier extends the ledger with newly observed facts
+- New scripts/render_pricing.py: the DEC-005 pricing benchmark view — one deterministic CSV (company, field, observed_value, as_of, boundary, evidence) over the profiles' pricing and commercial-model rows; cells copied verbatim, no claims added
+- COMPARISON-MATRIX: register direct candidates absent from the matrix are named exclusions with reasons in the Comparison Frame (template prompt + FRAME-CMP-004 checklist item + compare workflow gate)
+- The RESEARCH-REVIEW conformance contract reflects all of the above, closing the loop with the 1.7.0 quality-loop kind\
+"""
+
+[whatsnew."1.7.0"]
+summary = "The quality loop: the RESEARCH-REVIEW kind, the review workflow, and the check_coverage.py cross-artifact reporter"
+details = """\
+- New RESEARCH-REVIEW artifact kind: an audit of a research run's artifact set — requirements conformance per commissioned flow (verdicts met | partial | gap | not_commissioned against the epic-derived contract shipped in the rules), register next-action coverage (done | partial | open | superseded), informativeness findings with severities, and an ordered list of recommended next passes; the review adds no research content and ranks nothing
+- New scripts/check_coverage.py: the deterministic cross-artifact half — flow coverage, next-action matching against the candidate register, per-subject evidence density with soft floors, fact-ledger presence, expected exports, watch freshness against the cadence, and a traceability sweep; a report, not a gate
+- New cf-compete-review workflow: resolve the run (user gate) -> coverage report -> conformance verdicts read from the artifacts -> coverage confirmation (user gate) -> author -> deterministic gate -> exports -> semantic review; re-run after executing recommended passes to measure the closure
+- check_artifact_refs.py enforces the review's verdict/status/severity vocabularies and the artifact-reference duty (met/done rows must name a cpt-* id); render_views.py exports the Run Coverage CSV
+- Motivated by the first live dogfood run: every gap it surfaced (open register actions, missing fact ledgers, thin evidence bases) is now detected deterministically\
+"""
+
+[whatsnew."1.6.0"]
+summary = "Search-assisted URL discovery and the optional Playwright MCP render fallback"
+details = """\
+- cf-compete-capture can now discover candidate URLs by search-query reformulation when the host session provides a web-search tool: queries derived from the subject and the request's decision question, every candidate presented with its query and reason, user-confirmed before any fetch; degrades to user-supplied URLs when no search tool exists (URLs are never guessed from memory)
+- Render fallback for single-page applications: when the static fetch returns only the site shell and a browser-render tool is available (recommended host-level setup: the official Playwright MCP server, `claude mcp add playwright -- npx @playwright/mcp@latest`), capture escalates and records the method verbatim — the parse-then-render escalation the retained fixtures document; the kit itself stays dependency-free
+- cf-compete-discover gains an optional search-assisted widening step: search results are leads to leads — a candidate enters the register only after its pages are captured and indexed
+- guides/CAPTURE.md documents both, including the allowed-tools caveat for cfs-generated skills\
+"""
+
+[whatsnew."1.5.0"]
+summary = "Web capture: the cf-compete-capture intake surface"
+details = """\
+- New cf-compete-capture workflow: fetch confirmed public URLs with the host web-fetch tool, author claim-bounded single-page extracts (Source/Accessed/Access/Capture method + Concise extract + Intake note), and hand the drop to cf-compete-intake for EVD indexing — capture never writes the index itself
+- Capture policy (guides/CAPTURE.md): the request's access boundary gates every fetch (public sources only; gated sources are recorded, never fetched around); failures are evidence too (shell-only SPAs, blocks, and timeouts are logged, never silently skipped or reconstructed from memory); extracts stay claim-bounded (vendor claims labelled, mutable counters excluded, quotes verbatim)
+- No new scripts, kinds, or dependencies: the existing intake/checker machinery validates everything the capture produces\
+"""
+
+[whatsnew."1.4.0"]
+summary = "Change watches: the WATCH-REPORT kind and the watch workflow — all nine epic flows shipped"
+details = """\
+- New WATCH-REPORT artifact kind with two modes: baseline (first retained observation — a dated register with a concrete next-comparison rule per watched field, no change claims) and change-report (dated change records against the prior report: prior observation, current observation, observed_on, why it matters to the research question, evidence)
+- Epistemic guards: a change claim requires a prior retained observation; a change signal never becomes a customer/revenue/strategic impact claim; an unobservable field is recorded in completeness, never inferred unchanged; no rankings or momentum conclusions on top of change records
+- New cf-compete-watch workflow: mode resolution from the prior report -> evidence-freshness gate -> observe fields (user gate) -> author -> deterministic gate -> exports -> semantic review
+- This completes all nine Competitive Landscape epic flows\
+"""
+
+[whatsnew."1.3.0"]
+summary = "Mechanism studies: the MECHANISM-STUDY kind and the mechanism workflow"
+details = """\
+- New MECHANISM-STUDY artifact kind for narrow whitespace questions: a mechanism map whose rows are mechanisms, not companies — each with the closest documented analogue, the direct input it processes, the documented action including output/review behaviour, the unobserved elements, and evidence
+- Comparison Fields section prescribes what a later mechanism-lens comparison must record, naming the conflations it prevents (a dashboard is not an optimizer; a configuration surface is not a control plane)
+- Optional Product Hypothesis section: a whitespace direction derived from the map, always labelled and never an implementation commitment; cross-vendor silence enforced (one vendor's documentation never becomes another's gap)
+- New cf-compete-mechanism workflow with the narrow-question and mechanism-normalization gates\
+"""
+
+[whatsnew."1.2.0"]
+summary = "Open-source review: the OSS-REVIEW kind and the oss-review workflow"
+details = """\
+- New OSS-REVIEW artifact kind answering two separated questions: vendor source posture (open-source | open-core | partly-open-source | closed-source | not_assessed, with basis and evidence) and per-repository reuse records (component scope enum, licence with evidence, dated activity, evidence-based deployability, reuse relevance with follow-up)
+- Iron rules enforced by vocabulary checks and PDSL omissions: an SDK/connector/docs repository is never the product core; repository visibility never establishes product openness; deployability is never inferred from source visibility; missing or "Other" licence metadata is flagged, never assumed open
+- New cf-compete-oss-review workflow with the reviewed-set gate; matrix-style csv/html exports (repository review as the primary CSV)\
+"""
+
+[whatsnew."1.1.0"]
+summary = "Orientation cards: the ORIENTATION-CARD kind and the orient workflow"
+details = """\
+- New ORIENTATION-CARD artifact kind: a one-screen, evidence-bounded what-is-it card — offering and target user, visible product surfaces, principal documented mechanisms, company and source posture with labelled source classes, important unknowns — visibly an orientation output, never a profile or parity claim
+- New cf-compete-orient workflow: resolve request+subject (user gate) -> short evidence read -> author -> deterministic gate -> html export -> semantic self-review
+- Completes the depth ladder: discovery scan -> orientation -> standard profile -> deep dossier -> comparison\
+"""
+
+[whatsnew."1.0.0"]
+summary = "MVP complete: the COMPARISON-MATRIX kind and the compare workflow"
+details = """\
+- New COMPARISON-MATRIX artifact kind: exactly one frame per matrix (stated as the question answered AND the question not answered); every cell carries feature/mechanism, status (substantial | partial | not_observed | not_comparable), availability (current | planned | vision), an ISO observation date, a documented boundary, and evidence; Studio today always separate from Studio vision; readable conclusion with negative findings and no winner/loser scores
+- New cf-compete-compare workflow: fix the frame (user gate) -> confirm the compared set (user gate) -> normalize labels across vendors (user gate) -> author -> deterministic gate -> csv/html exports -> semantic self-review
+- check_artifact_refs.py enforces the full per-cell vocabulary (status, availability, date) per matrix row; render_views.py exports the matrix CSV
+- This closes the DEC-005 MVP: request -> intake -> register -> profile -> dossier -> comparison, all evidence-backed and traceability-linked; see guides/DEMO.md for the end-to-end acceptance run\
+"""
+
+[whatsnew."0.5.0"]
+summary = "Deep company dossier: the COMPANY-DOSSIER kind and the dossier workflow"
+details = """\
+- New COMPANY-DOSSIER artifact kind: evidence scope with source inventory, product surface, capability graph (offering -> capability -> features, evidence per row), documented mechanics with mandatory per-area what-remains-unestablished cells, source availability classes (public | gated | unavailable | planned | preview), users/commercial boundary, two-sided conclusion ending with the evidence-limits-not-absence-claims sentence
+- New cf-compete-dossier workflow: resolve request/subject/profile (user gate) -> evidence-surface inventory (user gate, thin-set warning) -> author -> deterministic gate -> html export -> semantic self-review
+- check_artifact_refs.py: per-(kind, section) vocabulary checks — dossier Source Availability enforces the availability enum; capability graph and mechanics rows carry the per-row evidence duty\
+"""
+
+[whatsnew."0.4.0"]
+summary = "Standard company profile: the COMPANY-PROFILE kind and the profile workflow"
+details = """\
+- New COMPANY-PROFILE artifact kind: commercial facts with per-row boundaries and as-of dating, offerings -> capabilities -> features, strongest point / weakest documented boundary (evidence limits, never absence claims), Studio relevance, labelled what-to-borrow product hypotheses (bor IDs), open-source posture, material unknowns
+- New cf-compete-profile workflow: resolve request+company (user gate) -> survey fact ledger and extracts -> author -> deterministic gate -> html export -> semantic self-review
+- Traceability: every profile back-referenced from its commissioning request (coverage link); borrow hypotheses are research input, never commitments\
+"""
+
+[whatsnew."0.3.0"]
+summary = "Competitor discovery: the CANDIDATE-REGISTER kind and the discover workflow"
+details = """\
+- New CANDIDATE-REGISTER artifact kind: classified leads (baseline/direct/adjacent/emerging) with per-row evidence and concrete next actions; no feature scores or rankings by construction
+- New cf-compete-discover workflow: resolve request -> survey evidence -> classify candidates (user gate) -> author -> deterministic gate -> exports -> semantic self-review
+- New scripts: check_artifact_refs.py (EVD/FACT reference resolution incl. ranges, per-row evidence duty, Evidence Scope cutoff, request back-link, classification vocabulary, absence-phrasing lint) and render_views.py (deterministic csv/html exports; the markdown artifact is canonical)
+- Traceability backbone activated: every register must be back-referenced from its commissioning request's Traceability section (constraints coverage link)\
+"""
+
+[whatsnew."0.2.0"]
+summary = "Evidence layer: EVD-### ledger, fact-ledger checks, and the intake workflow"
+details = """\
+- New cf-compete-intake workflow: scan a retained-evidence folder, plan the index update (dry-run), extend the append-only EVD-### evidence index, and verify every reference resolves
+- New scripts (stdlib-only): build_evidence_index.py (harvests bundle URLs and single-page EVD ids, reserves numbers cited by fact ledgers, skips non-extract files) and check_evidence.py (index header/enums/dates, 12-column fact ledgers with mandatory limitations and resolvable references, both retained-extract shapes)
+- New guides/EVIDENCE.md: ledger schemas, extract formats, and the epistemic rules the checker enforces
+- Hermetic examples/sample-evidence set (OpenSpec, EVD-358…364) used by the shipped examples and CI\
+"""
+
+[whatsnew."0.1.0"]
+summary = "Initial skeleton: structured competitive-research requests"
+details = """\
+- New RESEARCH-REQUEST artifact kind: the eight-field request record (target, decision question, scope, comparison frame, depth, requested output, evidence cutoff, access boundary) with every omitted field visibly "unspecified"
+- New cf-compete-request workflow: capture -> confirm fields -> author -> deterministic gate -> semantic self-review
+- Traceability root established: later registers, profiles, dossiers, and comparisons will cite the request that commissioned them\
+"""
