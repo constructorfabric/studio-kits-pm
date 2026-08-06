@@ -105,11 +105,13 @@ Load `{mechanism_study_template}` and `{mechanism_study_example}`. Follow
   comparison fields and the conflations they prevent; the optional
   labelled product hypothesis; the boundary; original files.
 - Set the study ID `cpt-{system}-mech-{slug}`; verify uniqueness with
-  `cfs list-ids`.
+  `cfs list-ids`; an existing ID means refresh mode — update the
+  registered file in place, never a second file with the same ID.
 - Update the commissioning request's Traceability section idempotently:
   append the back-link only when the ID is absent (replace the default
   no-derived-artifacts line when present); a refresh updates the existing
-  line instead of duplicating it.
+  line instead of duplicating it and collapses any duplicate lines for
+  this ID left by earlier runs into one.
 
 ## Step 4: Deterministic gate
 

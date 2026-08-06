@@ -45,6 +45,8 @@ instead of skipping silently.
 #### UNION-TAX-002: Sparse Rows Kept (CRITICAL)
 - Rows evidenced in only one vendor's corpus are present; nothing in the wording treats single-source rows as second-class.
 
+- [ ] **UNION-EXEMPT** — when Section 2 carries an unmined-vendor completeness note, it names each unmined vendor and cites the user's design-gate approval (turn and option); a generic or vendor-less note keeps CPT-TAX-NO-001 a hard fail
+
 ### 📐 ROW Quality (ROWS)
 
 #### ROWS-TAX-001: Decidable Rows (CRITICAL)

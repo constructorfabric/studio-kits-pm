@@ -29,8 +29,8 @@ DO:
   - RUN author Section 4 (Company and Source Posture): visible commercial model or its explicit not-established statement; source posture; source classes labelled; dates carried
   - RUN author Section 5 (Important Unknowns) and Section 6 (Original Files)
   - SET ID cpt-{system}-ori-{slug} for the card
-  - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-ori-{slug}` — {card title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
+  - RUN verify ID uniqueness with cfs list-ids; when the ID already exists, this run is a refresh — update the registered artifact file in place (same ID, same registry entry, refreshed date frontmatter), never a second file with the same ID
+  - RUN append the back-link "`cpt-{system}-ori-{slug}` — {card title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs
   - LOAD {orientation_card_checklist} for self-review of semantic quality
 
 RULES:

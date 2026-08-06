@@ -28,8 +28,8 @@ DO:
   - RUN author Section 4 (Vendor Aliases): one row per (feature, vendor) pair with the vendor's verbatim term and its evidence
   - RUN author Section 5 (Union Provenance): every compared vendor listed with the rows its corpus first established, or the explicit "no rows beyond the union" line
   - RUN author Section 6 (Boundary), Section 7 (Original Files), and Section 8 (Traceability) with the commissioning request ID
-  - SET ID cpt-{system}-tax-{slug}; verify uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-tax-{slug}` — {taxonomy title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
+  - SET ID cpt-{system}-tax-{slug}; verify uniqueness with cfs list-ids; when the ID already exists, this run is a refresh — update the registered artifact file in place (same ID, same registry entry, refreshed date frontmatter), never a second file with the same ID
+  - RUN append the back-link "`cpt-{system}-tax-{slug}` — {taxonomy title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs
   - LOAD {feature_taxonomy_checklist} for self-review of semantic quality
 
 RULES:
@@ -51,7 +51,7 @@ PURPOSE:
   Enforce MUST NOT HAVE content; report any occurrence as a violation.
 
 RULES:
-  - NEVER CPT-TAX-NO-001 (CRITICAL): a row set derived from a subset of the compared vendors — the anchor bias this kind exists to prevent; every vendor's inventory enters the union before rows are fixed; the sole exemption is a corpus the user explicitly accepted as unmined at the design gate, recorded as an unmined-vendor completeness note in Section 2
+  - NEVER CPT-TAX-NO-001 (CRITICAL): a row set derived from a subset of the compared vendors — the anchor bias this kind exists to prevent; every vendor's inventory enters the union before rows are fixed; the sole exemption is a corpus the user explicitly accepted as unmined at the design gate, recorded as an unmined-vendor completeness note in Section 2 that names each unmined vendor and cites the design-gate approval (the turn and option of the user's answer); a generic or vendor-less note grants no exemption
   - NEVER CPT-TAX-NO-002 (CRITICAL): a candidate row dropped because the first-mined vendors carry no evidence for it
   - NEVER CPT-TAX-NO-003 (CRITICAL): row inclusion presented as a capability or availability claim — cells belong to matrices, not the taxonomy
   - NEVER CPT-TAX-NO-004 (HIGH): an alias mapping without evidence of the vendor using the term

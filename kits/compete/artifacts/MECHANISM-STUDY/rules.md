@@ -30,8 +30,8 @@ DO:
   - RUN author Section 5 (Product Hypothesis) only when the map suggests one: the whitespace, the mechanism it would extend, its evidence, and the explicit not-a-commitment sentence
   - RUN author Section 6 (Boundary), Section 7 (Original Files), and Section 8 (Traceability) with the commissioning request ID
   - SET ID cpt-{system}-mech-{slug} for the study
-  - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-mech-{slug}` — {study title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
+  - RUN verify ID uniqueness with cfs list-ids; when the ID already exists, this run is a refresh — update the registered artifact file in place (same ID, same registry entry, refreshed date frontmatter), never a second file with the same ID
+  - RUN append the back-link "`cpt-{system}-mech-{slug}` — {study title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs
   - LOAD {mechanism_study_checklist} for self-review of semantic quality
 
 RULES:

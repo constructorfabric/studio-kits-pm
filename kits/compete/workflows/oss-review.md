@@ -105,7 +105,8 @@ Load `{oss_review_template}` and `{oss_review_example}`. Follow
 - Update the commissioning request's Traceability section idempotently:
   append the back-link only when the ID is absent (replace the default
   no-derived-artifacts line when present); a refresh updates the existing
-  line instead of duplicating it.
+  line instead of duplicating it and collapses any duplicate lines for
+  this ID left by earlier runs into one.
 
 ## Step 4: Deterministic gate
 

@@ -115,7 +115,8 @@ Load `{watch_report_template}` and `{watch_report_example}`. Follow
 - Update the commissioning request's Traceability section idempotently:
   append the back-link only when the ID is absent (replace the default
   no-derived-artifacts line when present); a refresh updates the existing
-  line instead of duplicating it.
+  line instead of duplicating it and collapses any duplicate lines for
+  this ID left by earlier runs into one.
 
 ## Step 5: Deterministic gate
 

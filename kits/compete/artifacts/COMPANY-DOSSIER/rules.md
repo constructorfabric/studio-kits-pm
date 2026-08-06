@@ -32,8 +32,8 @@ DO:
   - RUN author Section 6 (Users, Availability, and Commercial Boundary) and Section 7 (Dossier Conclusion) — the conclusion must state what the subject is credible for AND close with the evidence-limits-not-absence-claims sentence
   - RUN author Section 8 (Original Files)
   - SET ID cpt-{system}-dos-{slug} for the dossier
-  - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-dos-{slug}` — {dossier title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when a line for this ID already exists, update it in place — a refresh never appends a duplicate
+  - RUN verify ID uniqueness with cfs list-ids; when the ID already exists, this run is a refresh — update the registered artifact file in place (same ID, same registry entry, refreshed date frontmatter), never a second file with the same ID
+  - RUN append the back-link "`cpt-{system}-dos-{slug}` — {dossier title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs
   - LOAD {company_dossier_checklist} for self-review of semantic quality
 
 RULES:
