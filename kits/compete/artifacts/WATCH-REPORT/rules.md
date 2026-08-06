@@ -35,7 +35,7 @@ DO:
   - RUN author Section 6 (Boundary) and Section 7 (Original Files)
   - SET ID cpt-{system}-wat-{slug} for this pass, where {slug} carries a per-pass token — the pass date or a pass label (openspec-baseline, openspec-2026-10) — so every pass mints a distinct ID; the register carries continuity
   - RUN verify ID uniqueness with cfs list-ids (a pass ID is never reused; a colliding ID means the per-pass token is missing)
-  - RUN append the back-link "`cpt-{system}-wat-{slug}` — {report title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs
+  - RUN append the back-link "`cpt-{system}-wat-{slug}` — {report title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs, and a stale no-derived-artifacts line is removed whenever any back-link is present
   - LOAD {watch_report_checklist} for self-review of semantic quality
 
 RULES:

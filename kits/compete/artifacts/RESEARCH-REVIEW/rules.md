@@ -48,7 +48,7 @@ DO:
   - RUN author Section 6 (Recommended Next Passes): an ordered list, every item naming a kit workflow and subject
   - RUN author Section 7 (Boundary) and Section 8 (Original Files)
   - SET ID cpt-{system}-rev-{slug}; verify uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-rev-{slug}` — {review title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs
+  - RUN append the back-link "`cpt-{system}-rev-{slug}` — {review title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs, and a stale no-derived-artifacts line is removed whenever any back-link is present
   - LOAD {research_review_checklist} for self-review of semantic quality
 
 RULES:

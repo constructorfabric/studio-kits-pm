@@ -29,7 +29,7 @@ DO:
   - RUN author Section 5 (Union Provenance): every compared vendor listed with the rows its corpus first established, or the explicit "no rows beyond the union" line
   - RUN author Section 6 (Boundary), Section 7 (Original Files), and Section 8 (Traceability) with the commissioning request ID
   - SET ID cpt-{system}-tax-{slug}; verify uniqueness with cfs list-ids; when the ID already exists, this run is a refresh — update the registered artifact file in place (same ID, same registry entry, refreshed date frontmatter), never a second file with the same ID
-  - RUN append the back-link "`cpt-{system}-tax-{slug}` — {taxonomy title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs
+  - RUN append the back-link "`cpt-{system}-tax-{slug}` — {taxonomy title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs, and a stale no-derived-artifacts line is removed whenever any back-link is present
   - LOAD {feature_taxonomy_checklist} for self-review of semantic quality
 
 RULES:

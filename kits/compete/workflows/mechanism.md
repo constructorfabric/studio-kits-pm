@@ -111,7 +111,8 @@ Load `{mechanism_study_template}` and `{mechanism_study_example}`. Follow
   append the back-link only when the ID is absent (replace the default
   no-derived-artifacts line when present); a refresh updates the existing
   line instead of duplicating it and collapses any duplicate lines for
-  this ID left by earlier runs into one.
+  this ID left by earlier runs into one; a stale no-derived-artifacts
+  line is removed whenever any back-link is present.
 
 ## Step 4: Deterministic gate
 
