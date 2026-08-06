@@ -1,0 +1,20 @@
+# What's New — Product Spec Kit
+
+[whatsnew."0.1.1"]
+summary = "Convention parity: three workflows, SKILL routing contract, guides, and genericized examples"
+details = """\
+- Three workflows ship as `cf-product-spec-*` skills: opportunity (frame the problem), usecase (one user goal end to end), review (conformance + traceability audit); each carries a `## Route` block, typed user gates, and a deterministic gate
+- SKILL.md follows the kit convention: pipeline, workflow table, progress protocol, ALWAYS/NEVER routing rules, artifact-kind reference table, and commands
+- agents-res.md installs as AGENTS.md, giving host agents the artifact-kind and rules summary without loading the full SKILL
+- Guides added: QUICKSTART (first opportunity to first use case) and ARCHITECTURE (the traceability chain and where the kit stops)
+- Examples rewritten around a fictional "Acme Field Service" product so no figure reads as a real analytics result; both examples carry an explicit illustrative-example disclaimer
+- Kit joins the multi-kit manifest at the repository root; all ten artifact and skill resources declared
+"""
+
+[whatsnew."0.1.0"]
+summary = "Initial kit: OPPORTUNITY and USE-CASE artifacts"
+details = """\
+- OPPORTUNITY artifact: problem statement, evidence, target users, business impact, recommended next step; mints `cpt-{system}-opp-{slug}`
+- USE-CASE artifact: actors, preconditions, main flow, alternative flows, acceptance criteria, traceability; mints `cpt-{system}-usecase-{slug}` and references its opportunity
+- constraints.toml enforces the heading outline and ID templates for both kinds
+"""

@@ -652,3 +652,162 @@ user_modifiable = false
 public = true
 description = "Kit AGENTS.md for agent integration entry points"
 generated_targets = ["installed"]
+
+[[kits]]
+slug = "product-spec"
+name = "product-spec"
+version = "0.1.1"
+
+[[kits.resources]]
+id = "opportunity_template"
+kind = "template"
+source = "kits/product-spec/artifacts/OPPORTUNITY/template.md"
+install_path = "artifacts/OPPORTUNITY/template.md"
+type = "file"
+user_modifiable = true
+description = "OPPORTUNITY artifact template"
+
+[[kits.resources]]
+id = "opportunity_rules"
+kind = "other"
+source = "kits/product-spec/artifacts/OPPORTUNITY/rules.md"
+install_path = "artifacts/OPPORTUNITY/rules.md"
+type = "file"
+user_modifiable = true
+description = "OPPORTUNITY authoring and validation rules"
+
+[[kits.resources]]
+id = "opportunity_checklist"
+kind = "checklist"
+source = "kits/product-spec/artifacts/OPPORTUNITY/checklist.md"
+install_path = "artifacts/OPPORTUNITY/checklist.md"
+type = "file"
+user_modifiable = true
+description = "OPPORTUNITY semantic review checklist"
+
+[[kits.resources]]
+id = "opportunity_example"
+kind = "other"
+source = "kits/product-spec/artifacts/OPPORTUNITY/examples/example.md"
+install_path = "artifacts/OPPORTUNITY/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "OPPORTUNITY example artifact"
+
+[[kits.resources]]
+id = "usecase_template"
+kind = "template"
+source = "kits/product-spec/artifacts/USE-CASE/template.md"
+install_path = "artifacts/USE-CASE/template.md"
+type = "file"
+user_modifiable = true
+description = "USE-CASE artifact template"
+
+[[kits.resources]]
+id = "usecase_rules"
+kind = "other"
+source = "kits/product-spec/artifacts/USE-CASE/rules.md"
+install_path = "artifacts/USE-CASE/rules.md"
+type = "file"
+user_modifiable = true
+description = "USE-CASE authoring and validation rules"
+
+[[kits.resources]]
+id = "usecase_checklist"
+kind = "checklist"
+source = "kits/product-spec/artifacts/USE-CASE/checklist.md"
+install_path = "artifacts/USE-CASE/checklist.md"
+type = "file"
+user_modifiable = true
+description = "USE-CASE semantic review checklist"
+
+[[kits.resources]]
+id = "usecase_example"
+kind = "other"
+source = "kits/product-spec/artifacts/USE-CASE/examples/example.md"
+install_path = "artifacts/USE-CASE/examples/example.md"
+type = "file"
+user_modifiable = true
+description = "USE-CASE example artifact"
+
+[[kits.resources]]
+id = "guides"
+kind = "directory"
+source = "kits/product-spec/guides"
+install_path = "guides"
+type = "directory"
+user_modifiable = true
+description = "Kit method guides (QUICKSTART, ARCHITECTURE)"
+
+[[kits.resources]]
+id = "workflow_opportunity"
+kind = "skill"
+source = "kits/product-spec/workflows/opportunity.md"
+install_path = "workflows/opportunity.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Frame one product problem as an evidence-backed OPPORTUNITY"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "workflow_usecase"
+kind = "skill"
+source = "kits/product-spec/workflows/usecase.md"
+install_path = "workflows/usecase.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Specify one user goal end to end as a USE-CASE traced to its OPPORTUNITY"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "workflow_review"
+kind = "skill"
+source = "kits/product-spec/workflows/review.md"
+install_path = "workflows/review.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Audit existing OPPORTUNITY and USE-CASE artifacts for conformance, evidence quality, and traceability"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "skill"
+kind = "skill"
+source = "kits/product-spec/SKILL.md"
+install_path = "SKILL.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Kit SKILL.md for agent navigation and workflow routing"
+generated_targets = ["installed"]
+
+[[kits.resources]]
+id = "constraints"
+kind = "constraints"
+source = "kits/product-spec/constraints.toml"
+install_path = "constraints.toml"
+type = "file"
+user_modifiable = false
+description = "Kit structural constraints (heading outlines, ID kinds, cross-references)"
+
+[kits.resources.artifacts]
+[kits.resources.artifacts."OPPORTUNITY"]
+template = "opportunity_template"
+examples = "opportunity_example"
+
+[kits.resources.artifacts."USE-CASE"]
+template = "usecase_template"
+examples = "usecase_example"
+
+[[kits.resources]]
+id = "agents"
+kind = "rule"
+source = "kits/product-spec/agents-res.md"
+install_path = "AGENTS.md"
+type = "file"
+user_modifiable = false
+public = true
+description = "Kit AGENTS.md for agent integration entry points"
+generated_targets = ["installed"]

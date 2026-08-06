@@ -222,6 +222,41 @@ jobs:
             | grep -qx "lead,next_action,status,fulfilled_by,follow_up"
           ! grep -qi "<script" /tmp/render-rev/example.html
 
+  product-spec:
+    # The product-spec kit ships no scripts; its own checks are the
+    # protocol conventions and the traceability the examples demonstrate.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: kits/product-spec
+    steps:
+      - uses: actions/checkout@v4
+      - name: Progress-protocol conventions hold
+        run: |
+          # Every user gate is typed (decision | confirmation); no bare gates.
+          ! grep -RnE '\(\*\*user gate\*\*\)' workflows/
+          ! grep -RnP 'user gate — (?!decision|confirmation)' workflows/
+          # Every workflow declares its Route block; SKILL defines the protocol.
+          for f in workflows/*.md; do
+            grep -q '^## Route$' "$f" || { echo "missing Route: $f"; exit 1; }
+          done
+          grep -q '^## Progress protocol$' SKILL.md
+          # The solution line and the no-invented-evidence rule must not regress.
+          grep -q 'ALWAYS keep the solution line' SKILL.md
+          grep -q 'NEVER invent a figure' SKILL.md
+      - name: Examples are traceable and marked illustrative
+        run: |
+          # The use-case example implements the opportunity example's ID.
+          opp=$(grep -oE 'cpt-[a-z0-9-]+-opp-[a-z0-9-]+' \
+            artifacts/OPPORTUNITY/examples/example.md | head -1)
+          test -n "$opp"
+          grep -q "$opp" artifacts/USE-CASE/examples/example.md
+          # Neither example may read as a real analytics result.
+          for f in artifacts/*/examples/example.md; do
+            grep -qi 'illustrative example' "$f" \
+              || { echo "missing disclaimer: $f"; exit 1; }
+          done
+
   cfs:
     # Full validation of every kit via the Constructor Studio CLI.
     # New kits under kits/ are picked up automatically.
@@ -235,8 +270,16 @@ jobs:
         run: |
           pipx install git+https://github.com/constructorfabric/studio.git
           cfs --version
-      - name: validate-kits against the root manifest
-        run: cfs validate-kits .
+      - name: validate-kits per kit directory
+        # Path mode resolves one kit per invocation and ignores --kit, so a
+        # repo-root path errors on the multi-kit manifest. Loop the kit dirs;
+        # the root manifest itself is covered by kit normalize below.
+        run: |
+          for kit in kits/*/; do
+            [ -d "$kit" ] || continue
+            echo "=== $kit ==="
+            cfs validate-kits "$kit"
+          done
       - name: kit normalize catches manifest errors
         run: cfs kit normalize --dry-run . --json --kit all
       - name: install + generate-agents e2e in a temp project
@@ -245,10 +288,11 @@ jobs:
           git -C "$proj" init -q
           (cd "$proj" \
             && cfs init --yes \
-            && cfs kit install --path "$GITHUB_WORKSPACE" --kit compete --install-mode copy \
+            && cfs kit install --path "$GITHUB_WORKSPACE" --kit all --install-mode copy \
             && cfs validate-kits \
             && cfs generate-agents)
           ls "$proj/.claude/skills" | grep -q '^cf-compete-run$'
+          ls "$proj/.claude/skills" | grep -q '^cf-product-spec-opportunity$'
           rm -rf "$proj"
       - name: pdsl validate on every kit
         run: |
