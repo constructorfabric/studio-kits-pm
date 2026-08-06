@@ -50,6 +50,26 @@ KNOWN_KINDS = {"req", "reg", "ori", "prof", "bor", "dos", "cmp", "oss",
                "mech", "wat", "rev", "tax"}
 
 
+DIR_KINDS = {
+    "RESEARCH-REQUEST": "req", "CANDIDATE-REGISTER": "reg",
+    "ORIENTATION-CARD": "ori", "COMPANY-PROFILE": "prof",
+    "COMPANY-DOSSIER": "dos", "COMPARISON-MATRIX": "cmp",
+    "OSS-REVIEW": "oss", "MECHANISM-STUDY": "mech",
+    "WATCH-REPORT": "wat", "RESEARCH-REVIEW": "rev",
+    "FEATURE-TAXONOMY": "tax",
+}
+
+
+def kind_from_path(path: Path) -> str:
+    """KIND-named ancestor directory beats ID-token scanning: a hyphenated
+    {system} slug may itself contain a reserved kind token, and the
+    project/kit layouts always shelve artifacts under their KIND dir."""
+    for part in reversed(path.resolve().parts[:-1]):
+        if part in DIR_KINDS:
+            return DIR_KINDS[part]
+    return ""
+
+
 def detect_kind(cpt_id: str) -> str:
     parts = cpt_id.split("-")
     for part in parts[1:-1]:
@@ -273,7 +293,7 @@ def check_file(path: Path, known_evd: set[str], known_facts: set[str] | None,
     if not m:
         errors.append("no `**ID**: `cpt-…`` line found")
     else:
-        kind = detect_kind(m.group(1))
+        kind = kind_from_path(path) or detect_kind(m.group(1))
         if not kind:
             errors.append(
                 f"artifact ID {m.group(1)!r} carries no known kit kind "

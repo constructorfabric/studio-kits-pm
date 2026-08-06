@@ -8,6 +8,7 @@ request: cpt-{system}-req-{slug}
 # Watch Report — {Subject}
 
 **ID**: `cpt-{system}-wat-{slug}`
+<!-- The slug carries a per-pass token (pass date or label, e.g. openspec-baseline, openspec-2026-10): each watch pass mints a new ID; the Watch Register carries continuity. -->
 
 ## Table of Contents
 

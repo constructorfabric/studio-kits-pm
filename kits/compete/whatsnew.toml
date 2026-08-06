@@ -1,5 +1,18 @@
 # What's New — Competitive Analysis Kit
 
+[whatsnew."1.14.0"]
+summary = "Contract hardening: idempotent traceability, bound watch passes, one ID lifecycle, dir-aware kind detection"
+details = """\
+- Traceability back-links are idempotent in every authoring contract: append only when the ID is absent, update the existing line otherwise — a refresh never duplicates it
+- Watch passes bind to their commissioning request and watched-field set; a prior report under a different request or field set never seeds change detection, and each pass's slug carries a per-pass token so IDs stay unique
+- Artifact-ID lifecycle is explicit: profile and OSS-review refreshes update the registered file in place (same ID), never a second file; the dossier's no-profile state is an explicit traceability line and the direct-dossier path creates its fact ledger before citing time-sensitive facts
+- One vendor-posture enum (open-source | open-core | partly-open-source | closed-source | not_assessed) everywhere; taxonomy and mechanism contracts author Section 8 explicitly; CPT-TAX-NO-001 names its sole exemption (user-accepted unmined corpus, recorded in Evidence Scope); undocumented mechanisms stay out of the Mechanism Map as limitations or hypothesis seeds
+- cf-compete-capture validates destinations before any fetch: http(s) only, public addresses only, redirects revalidated, rejections logged as capture failures
+- Kind detection prefers the KIND-named ancestor directory over ID-token scanning, so a hyphenated {system} slug containing a reserved token (cpt-cmp-platform-reg-demo) resolves correctly; CI covers it
+- Examples: the profile example splits corporate (captured) from finance (deferred); OSS repository rows state why each is not a drop-in alternative; the mechanism example moves machine-local isolation to an adjacent-surface note per its own comparison-field rule
+- CI: a temp-project install + generate-agents e2e job guards manifest and resource projection
+"""
+
 [whatsnew."1.13.3"]
 summary = "Review-driven fixes from the public-repo import (PR review)"
 details = """\

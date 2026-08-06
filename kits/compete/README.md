@@ -23,7 +23,7 @@ observation date, and an explicit boundary.
 
 ## Status
 
-Version 1.13.3 — all nine epic flows, the web intake surface with
+Version 1.14.0 — all nine epic flows, the web intake surface with
 search-assisted discovery and corpus capture mode, the quality loop
 (research review + coverage audit), the evidence-depth contract with the
 pricing benchmark view, the feature taxonomy with matrix binding and

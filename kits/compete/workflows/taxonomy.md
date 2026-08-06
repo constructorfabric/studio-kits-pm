@@ -95,7 +95,9 @@ note.
 
 ## Step 2: Confirm the taxonomy design
 
-Present one numbered proposal — the row set (8–20 per frame, with the
+Present one numbered proposal — any user-accepted unmined vendors named
+first (they become the Section 2 completeness note CPT-TAX-NO-001
+exempts), then the row set (8–20 per frame, with the
 reason when outside the band), each row's definition and inclusion
 criterion, the alias map, the provenance table showing which source
 contributed which rows, and any rows kept despite single-source
@@ -110,15 +112,21 @@ Follow `{feature_taxonomy_rules}`:
 - Resolve the FEATURE-TAXONOMY directory from `artifacts.toml`; set the
   path `{artifacts_dir}/FEATURE-TAXONOMY/{yyyy-mm-dd}-{slug}.md` and
   register it.
-- Author Sections 1–7: the normalization-contract scope statement;
+- Author Sections 1–8: the normalization-contract scope statement;
   evidence scope naming the mined corpora; the feature rows; the vendor
   aliases (verbatim, evidenced); the union provenance with every
   compared vendor listed; the boundary (inclusion is not availability);
-  original files including the harvest invocation.
+  original files including the harvest invocation; traceability
+  carrying the commissioning request ID.
 - Set the ID `cpt-{system}-tax-{slug}`; verify uniqueness with
-  `cfs list-ids`.
-- Append the back-link to the commissioning request's Traceability
-  section (replace its default no-derived-artifacts line when present).
+  `cfs list-ids`; an existing ID means refresh mode — update the
+  registered file in place, never a second file with the same ID.
+- Update the commissioning request's Traceability section idempotently:
+  append the back-link only when the ID is absent (replace the default
+  no-derived-artifacts line when present); a refresh updates the existing
+  line instead of duplicating it and collapses any duplicate lines for
+  this ID left by earlier runs into one; a stale no-derived-artifacts
+  line is removed whenever any back-link is present.
 
 ## Step 4: Deterministic gate
 

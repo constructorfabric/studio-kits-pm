@@ -47,7 +47,12 @@ a mechanism's scope.
 | Versioned change packaging | OpenSpec | A repository's specification library and a proposed change | Wraps a change as a proposal with specification deltas, technical design, and implementation tasks; applying and archiving the package updates the specifications | Review behaviour in practice, merge-conflict handling, and any quantified review-quality result | `EVD-361`; `FACT-COMP-073-004` |
 | Staged lifecycle commands | OpenSpec | The change package and the repository state | Separates the loop into explore, propose, apply, sync, and archive commands installed per tool profile, giving a human a named stage boundary before and after agent work | Depth of each stage's behaviour and whether stages can be enforced rather than skipped | `EVD-362` |
 | Gated workflow orchestration | AI-SDLC Framework | Workflow definitions and specification documents | Presents a decision-engine structure with gates, orchestration, reviewer agents, and verification artefacts between workflow stages | Implemented controls versus positioning; gate execution and override behaviour | `EVD-141`; `EVD-142` |
-| Machine-local work isolation | OpenSpec | A contributor's in-progress change set | Beta personal worksets are described as machine-local and neither committed nor shared, keeping unreviewed work out of the shared surface | Whether isolation integrates with a review step or merely defers sharing | `EVD-364`; `FACT-COMP-073-007` |
+
+Adjacent surface, excluded from the map: OpenSpec's beta personal
+worksets are described as machine-local and neither committed nor shared
+(`EVD-364`; `FACT-COMP-073-007`). Whether that isolation integrates with
+a review step or merely defers sharing is unestablished, so local
+isolation enters no comparison as a review mechanism (Section 4's rule).
 
 ## 4. Comparison Fields
 

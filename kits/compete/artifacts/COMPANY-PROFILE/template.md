@@ -7,6 +7,7 @@ request: cpt-{system}-req-{slug}
 # Company Profile — {Company}
 
 **ID**: `cpt-{system}-prof-{slug}`
+<!-- The profile ID is stable across refreshes: a refresh updates this file in place and never creates a second artifact with the same ID. -->
 
 ## Table of Contents
 

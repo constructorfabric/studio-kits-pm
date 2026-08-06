@@ -35,8 +35,9 @@ feature-parity result.
 - **Depth**: standard profile
 - **Source classes**: landing: captured (product website); pricing:
   deferred (no pricing surface in the retained set — Workspaces/Stores are
-  preview); docs: captured; repository: captured; corporate/finance:
-  captured (YC company profile; no finance filings in the retained set)
+  preview); docs: captured; repository: captured; corporate:
+  captured (YC company profile); finance: deferred (no finance filings in
+  the retained set)
 - **Completeness**: company identity, repository, documentation, and product
   website surfaces were reviewed; finance, adoption, and hands-on surfaces
   were not in the retained set.

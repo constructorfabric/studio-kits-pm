@@ -117,6 +117,26 @@ KNOWN_KINDS = {"req", "reg", "ori", "prof", "bor", "dos", "cmp", "oss",
                "mech", "wat", "rev", "tax"}
 
 
+DIR_KINDS = {
+    "RESEARCH-REQUEST": "req", "CANDIDATE-REGISTER": "reg",
+    "ORIENTATION-CARD": "ori", "COMPANY-PROFILE": "prof",
+    "COMPANY-DOSSIER": "dos", "COMPARISON-MATRIX": "cmp",
+    "OSS-REVIEW": "oss", "MECHANISM-STUDY": "mech",
+    "WATCH-REPORT": "wat", "RESEARCH-REVIEW": "rev",
+    "FEATURE-TAXONOMY": "tax",
+}
+
+
+def kind_from_path(path: Path) -> str:
+    """KIND-named ancestor directory beats ID-token scanning: a hyphenated
+    {system} slug may itself contain a reserved kind token, and the
+    project/kit layouts always shelve artifacts under their KIND dir."""
+    for part in reversed(path.resolve().parts[:-1]):
+        if part in DIR_KINDS:
+            return DIR_KINDS[part]
+    return ""
+
+
 def artifact_kind(text: str) -> str:
     m = ID_LINE_RE.search(text)
     if not m:
@@ -304,7 +324,7 @@ def main() -> int:
         return 1
 
     text = args.artifact.read_text(encoding="utf-8")
-    kind = artifact_kind(text)
+    kind = kind_from_path(args.artifact) or artifact_kind(text)
     out_dir = args.out_dir or (args.artifact.parent / "exports")
     out_dir.mkdir(parents=True, exist_ok=True)
 

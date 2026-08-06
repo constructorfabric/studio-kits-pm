@@ -86,8 +86,11 @@ mechanisms, separate direct mechanisms from adjacent surfaces, and
 normalize mechanism names across vendors (domain-standard wording, never
 one vendor's label). Present the mechanism list — including borderline
 surfaces and how they were classified — and confirm with the user
-(**user gate — confirmation**). A mechanism without a documented analogue is a whitespace
-observation; keep it.
+(**user gate — confirmation**). A mechanism without a documented analogue
+is a whitespace observation: record it as a research limitation or
+follow-up target (and, when warranted, the seed of Section 5's product
+hypothesis) — it enters the Mechanism Map only once a documented
+analogue, action, and resolvable evidence support it.
 
 ## Step 3: Author the MECHANISM-STUDY artifact
 
@@ -102,9 +105,14 @@ Load `{mechanism_study_template}` and `{mechanism_study_example}`. Follow
   comparison fields and the conflations they prevent; the optional
   labelled product hypothesis; the boundary; original files.
 - Set the study ID `cpt-{system}-mech-{slug}`; verify uniqueness with
-  `cfs list-ids`.
-- Append the back-link to the commissioning request's Traceability section
-  (replace its default no-derived-artifacts line when present).
+  `cfs list-ids`; an existing ID means refresh mode — update the
+  registered file in place, never a second file with the same ID.
+- Update the commissioning request's Traceability section idempotently:
+  append the back-link only when the ID is absent (replace the default
+  no-derived-artifacts line when present); a refresh updates the existing
+  line instead of duplicating it and collapses any duplicate lines for
+  this ID left by earlier runs into one; a stale no-derived-artifacts
+  line is removed whenever any back-link is present.
 
 ## Step 4: Deterministic gate
 

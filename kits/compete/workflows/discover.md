@@ -113,9 +113,14 @@ Follow `{candidate_register_rules}`:
   NOT, evidence scope with cutoff, the confirmed candidate table, boundary,
   original files).
 - Set the register ID `cpt-{system}-reg-{slug}`; verify uniqueness with
-  `cfs list-ids`.
-- Append the back-link to the commissioning request's Traceability section
-  (replace its default no-derived-artifacts line when present).
+  `cfs list-ids`; an existing ID means refresh mode — update the
+  registered file in place, never a second file with the same ID.
+- Update the commissioning request's Traceability section idempotently:
+  append the back-link only when the ID is absent (replace the default
+  no-derived-artifacts line when present); a refresh updates the existing
+  line instead of duplicating it and collapses any duplicate lines for
+  this ID left by earlier runs into one; a stale no-derived-artifacts
+  line is removed whenever any back-link is present.
 
 ## Step 4: Deterministic gate
 

@@ -2,7 +2,7 @@
 cf-studio: true
 type: workflow
 name: cf-compete-oss-review
-description: Invoke when the user asks about open-source posture or reusable implementations — e.g. "is <vendor> actually open-source?", "review the open-source alternatives for <capability>", "can we reuse an existing implementation?", "cf-compete oss-review". Builds an OSS-REVIEW (Flow 7) — vendor source posture (open-source/open-core/partly/closed/not_assessed) recorded separately from per-repository licence, scope, deployability, activity, and reuse relevance. An SDK or docs repository is never the product core.
+description: Invoke when the user asks about open-source posture or reusable implementations — e.g. "is <vendor> actually open-source?", "review the open-source alternatives for <capability>", "can we reuse an existing implementation?", "cf-compete oss-review". Builds an OSS-REVIEW (Flow 7) — vendor source posture (open-source/open-core/partly-open-source/closed-source/not_assessed) recorded separately from per-repository licence, scope, deployability, activity, and reuse relevance. An SDK or docs repository is never the product core.
 version: 1.0
 purpose: Review open-source posture and alternative implementations (Flow 7) for a company set or capability
 ---
@@ -100,9 +100,14 @@ Load `{oss_review_template}` and `{oss_review_example}`. Follow
   evidence-based deployability, reuse relevance with follow-up);
   recommendation boundary; original files.
 - Set the review ID `cpt-{system}-oss-{slug}`; verify uniqueness with
-  `cfs list-ids`.
-- Append the back-link to the commissioning request's Traceability section
-  (replace its default no-derived-artifacts line when present).
+  `cfs list-ids`; an existing ID means refresh mode — update the
+  registered file in place, never a second file with the same ID.
+- Update the commissioning request's Traceability section idempotently:
+  append the back-link only when the ID is absent (replace the default
+  no-derived-artifacts line when present); a refresh updates the existing
+  line instead of duplicating it and collapses any duplicate lines for
+  this ID left by earlier runs into one; a stale no-derived-artifacts
+  line is removed whenever any back-link is present.
 
 ## Step 4: Deterministic gate
 

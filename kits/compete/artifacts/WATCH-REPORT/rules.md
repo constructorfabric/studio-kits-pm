@@ -14,7 +14,7 @@ PURPOSE:
 
 STATE:
   - SET mode: baseline | change-report
-    default: baseline when no prior WATCH-REPORT for the subject is registered
+    default: baseline when no prior WATCH-REPORT bound to the same commissioning request and confirmed watched-field set is registered
 
 WHEN:
   - REQUIRE establishing or running a competitive watch for a registered RESEARCH-REQUEST
@@ -25,7 +25,7 @@ DO:
   - LOAD {watch_report_template} for structure
   - LOAD {watch_report_example} for content depth reference
   - RUN resolve the commissioning RESEARCH-REQUEST with cfs list-ids; record its ID in the frontmatter and Section 8
-  - RUN resolve the prior WATCH-REPORT for the subject with cfs list-ids; SET mode = change-report when one exists, baseline otherwise
+  - RUN resolve the prior WATCH-REPORT with cfs list-ids, requiring the same commissioning request ID and the same confirmed watched-field set — a report for the subject under a different request or field set never qualifies; SET mode = change-report when a matching report exists, baseline otherwise
   - RUN author Section 1 (Watch Scope): subject, watched fields per the request, cadence, and the no-impact-inference statement
   - RUN author Section 2 (Evidence Scope), noting fields that could not be observed this pass
   - RUN author Section 3 (Watch Status) per mode, naming the prior report and both observation dates in change-report mode
@@ -33,9 +33,9 @@ DO:
   - RUN in change-report mode: compare each field against the prior report's register and author Section 5 (Detected Changes) — one row per change with prior observation, current observation, ISO observed_on, why it matters to the research question, and evidence; when no field changed, keep the section with the explicit line "No material change was detected this pass."
   - RUN in baseline mode: author Section 5 with the explicit line "Baseline pass — no prior retained observation exists, so no change detection applies." and no table
   - RUN author Section 6 (Boundary) and Section 7 (Original Files)
-  - SET ID cpt-{system}-wat-{slug} for this pass (a new ID per pass; the register carries continuity)
-  - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-wat-{slug}` — {report title}" to the commissioning request's Traceability section, replacing its default no-derived-artifacts line when present
+  - SET ID cpt-{system}-wat-{slug} for this pass, where {slug} carries a per-pass token — the pass date or a pass label (openspec-baseline, openspec-2026-10) — so every pass mints a distinct ID; the register carries continuity
+  - RUN verify ID uniqueness with cfs list-ids (a pass ID is never reused; a colliding ID means the per-pass token is missing)
+  - RUN append the back-link "`cpt-{system}-wat-{slug}` — {report title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs, and a stale no-derived-artifacts line is removed whenever any back-link is present
   - LOAD {watch_report_checklist} for self-review of semantic quality
 
 RULES:

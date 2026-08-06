@@ -25,8 +25,8 @@ DO:
   - RUN author Section 3 (Candidates): one row per candidate with classification (baseline | direct | adjacent | emerging, plus a relationship descriptor), aliases when known, the screening question that puts it in scope, at least one resolvable evidence reference, and a concrete next research action
   - RUN author Section 4 (Boundary) and Section 5 (Original Files)
   - SET ID cpt-{system}-reg-{slug} for the register
-  - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-reg-{slug}` — {register title}" to the commissioning request's Traceability section, replacing its default no-derived-artifacts line when present
+  - RUN verify ID uniqueness with cfs list-ids; when the ID already exists, this run is a refresh — update the registered artifact file in place (same ID, same registry entry, refreshed date frontmatter), never a second file with the same ID
+  - RUN append the back-link "`cpt-{system}-reg-{slug}` — {register title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs, and a stale no-derived-artifacts line is removed whenever any back-link is present
   - LOAD {candidate_register_checklist} for self-review of semantic quality
 
 RULES:

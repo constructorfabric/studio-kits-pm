@@ -72,10 +72,13 @@ and the derived csv/html exports.
 
 ## Step 1: Resolve the request, subject, and mode
 
-Identify the commissioning RESEARCH-REQUEST and any prior WATCH-REPORT for
-the subject (`cfs list-ids`). Mode is change-report when a prior report
-exists, baseline otherwise. Confirm the watched-field set and cadence from
-the request — changes to the set need a request revision first
+Identify the commissioning RESEARCH-REQUEST and any prior WATCH-REPORT
+bound to that same request with the same confirmed watched-field set
+(`cfs list-ids`; a prior report for the subject under a different request
+or field set never seeds change detection). Mode is change-report when a
+matching prior report exists, baseline otherwise. Confirm the
+watched-field set and cadence from the request — changes to the set need
+a request revision first
 (**user gate — confirmation**).
 STOP WHEN no RESEARCH-REQUEST resolves.
 
@@ -109,8 +112,12 @@ Load `{watch_report_template}` and `{watch_report_example}`. Follow
   boundary; original files.
 - Set this pass's ID `cpt-{system}-wat-{slug}`; verify uniqueness with
   `cfs list-ids`.
-- Append the back-link to the commissioning request's Traceability section
-  (replace its default no-derived-artifacts line when present).
+- Update the commissioning request's Traceability section idempotently:
+  append the back-link only when the ID is absent (replace the default
+  no-derived-artifacts line when present); a refresh updates the existing
+  line instead of duplicating it and collapses any duplicate lines for
+  this ID left by earlier runs into one; a stale no-derived-artifacts
+  line is removed whenever any back-link is present.
 
 ## Step 5: Deterministic gate
 

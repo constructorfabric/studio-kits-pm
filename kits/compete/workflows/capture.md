@@ -123,6 +123,12 @@ or no web-fetch tool is available.
 ## Step 2: Fetch and author extracts
 
 For each confirmed URL:
+- Validate the destination before any fetch: the scheme must be `http` or
+  `https`, and the host must be a public (global) address — reject
+  localhost, loopback, link-local, and private-range destinations,
+  recording the rejection as a capture failure in the capture log.
+  Re-apply the same validation to every redirect target before following
+  it. A rejected destination is never fetched.
 - Fetch the page with the host web-fetch tool.
 - WHEN the static fetch returns only an application shell or empty content
   AND the host session provides a browser-render tool (e.g. the Playwright

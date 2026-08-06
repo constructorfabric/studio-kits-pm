@@ -163,6 +163,16 @@ jobs:
             --format csv --out-dir /tmp/kind-test
           head -1 /tmp/kind-test/register.csv \
             | grep -qx "candidate,relationship,why_in_scope,evidence,next_action"
+          # A KIND-named ancestor directory beats ID-token scanning, so a
+          # {system} slug containing a reserved token still resolves right.
+          mkdir -p /tmp/kind-test/CANDIDATE-REGISTER
+          sed 's/cpt-specs-reg-openspec-peers/cpt-cmp-platform-reg-demo/' \
+            artifacts/CANDIDATE-REGISTER/examples/example.md \
+            > /tmp/kind-test/CANDIDATE-REGISTER/ambiguous.md
+          python3 scripts/render_views.py /tmp/kind-test/CANDIDATE-REGISTER/ambiguous.md \
+            --format csv --out-dir /tmp/kind-test
+          head -1 /tmp/kind-test/ambiguous.csv \
+            | grep -qx "candidate,relationship,why_in_scope,evidence,next_action"
           sed 's/cpt-specs-reg-openspec-peers/cpt-specs-zzz-openspec-peers/' \
             artifacts/CANDIDATE-REGISTER/examples/example.md > /tmp/kind-test/unknown.md
           ! python3 scripts/check_artifact_refs.py /tmp/kind-test/unknown.md \
@@ -229,6 +239,17 @@ jobs:
         run: cfs validate-kits .
       - name: kit normalize catches manifest errors
         run: cfs kit normalize --dry-run . --json --kit all
+      - name: install + generate-agents e2e in a temp project
+        run: |
+          proj=$(mktemp -d)
+          git -C "$proj" init -q
+          (cd "$proj" \
+            && cfs init --yes \
+            && cfs kit install --path "$GITHUB_WORKSPACE" --kit compete --install-mode copy \
+            && cfs validate-kits \
+            && cfs generate-agents)
+          ls "$proj/.claude/skills" | grep -q '^cf-compete-run$'
+          rm -rf "$proj"
       - name: pdsl validate on every kit
         run: |
           for kit in kits/*/; do

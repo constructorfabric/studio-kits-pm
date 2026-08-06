@@ -30,8 +30,8 @@ DO:
   - RUN author Section 4 (Repository Review): one row per repository — component scope exactly one of core | connector | sdk | plugin | examples | documentation | benchmark | other; declared licence with its evidence (flag missing or conflicting licence data); activity signal with as-of date; deployability judged from documented run/self-host material, never from source visibility; reuse relevance naming the specific mechanism, the follow-up needed, and why it is not a drop-in alternative
   - RUN author Section 5 (Recommendation Boundary) and Section 6 (Original Files)
   - SET ID cpt-{system}-oss-{slug} for the review
-  - RUN verify ID uniqueness with cfs list-ids
-  - RUN append the back-link "`cpt-{system}-oss-{slug}` — {review title}" to the commissioning request's Traceability section, replacing its default no-derived-artifacts line when present
+  - RUN verify ID uniqueness with cfs list-ids; when the ID already exists, this run is a refresh — update the registered artifact file in place (same ID, same registry entry, refreshed date frontmatter), never a second file with the same ID
+  - RUN append the back-link "`cpt-{system}-oss-{slug}` — {review title}" to the commissioning request's Traceability section only when the ID is absent (replace the default no-derived-artifacts line when present); when one or more lines for this ID already exist, collapse them into a single line updated in place (other artifacts' lines stay untouched) — a refresh never appends a duplicate and always repairs duplicates left by earlier runs, and a stale no-derived-artifacts line is removed whenever any back-link is present
   - LOAD {oss_review_checklist} for self-review of semantic quality
 
 RULES:
