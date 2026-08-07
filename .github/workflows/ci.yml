@@ -171,6 +171,7 @@ jobs:
               (run, "every decision the user explicitly confirmed in the guided chain"),
               (run, "only genuinely undecided fields get fresh recommendations"),
               (run, "**user gate — confirmation**"),
+              (run, "are reused when their commissioning request and plan inputs remain compatible"),
               (run, "invalidates the affected artifacts, and their stages rerun"),
           )
           for text, phrase in checks:
