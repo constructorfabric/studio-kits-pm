@@ -2,7 +2,7 @@
 cf-studio: true
 type: workflow
 name: cf-compete-run
-description: Invoke when the user wants the whole competitive-research pipeline end to end — it asks exactly one plan-approval question first, then runs autonomously — e.g. "just run the research for <vision file>", "find and profile the competitors of <target>, end to end", "express run", "do the full competitive analysis", "cf-compete run <target or file>". The express golden path — one upfront run-plan decision (all eight request fields, capture and discovery approach, depth policy, planned artifact set), then autonomous execution of request → capture → intake → discover → per-lead follow-ups → comparison → review, with every confirmation gate auto-proceeding on its recommendation and logged; only genuinely new decisions surface. The plan gate is mandatory: execution never starts before the user approves the plan. Ends with the run report and the RESEARCH-REVIEW audit artifact. For step-by-step control use the individual guided workflows instead.
+description: Invoke when the user wants the whole competitive-research pipeline end to end — it asks exactly one plan-approval question first, then runs autonomously — e.g. "just run the research for <vision file>", "find and profile the competitors of <target>, end to end", "express run", "do the full competitive analysis", "cf-compete run <target or file>". The express golden path — one upfront run-plan decision (all eight request fields, capture and discovery approach, depth policy, planned artifact set), then autonomous execution of request → capture → intake → discover → per-lead follow-ups → comparison → review, with every confirmation gate auto-proceeding on its recommendation and logged; only genuinely new decisions surface. The plan gate is mandatory: execution never starts before the user approves the plan. Cancelling a presented plan cancels that run only, never the mode — a new target in the reply gets a fresh express plan. Ends with the run report and the RESEARCH-REVIEW audit artifact. For step-by-step control use the individual guided workflows instead.
 version: 1.1
 purpose: Run the full competitive-research pipeline in express mode — one plan decision upfront, autonomous execution, an audited result
 ---
@@ -22,7 +22,9 @@ ALWAYS open and follow `{cf-studio-path}/.core/skills/cf-studio/SKILL.md` FIRST 
 | User Intent | Route | Example |
 |-------------|-------|---------|
 | The whole pipeline, minimal questions | **run.md** | "just run the research for input/vision.md", `/cf-compete-run` |
-| Step-by-step control over one flow | the guided workflow | "profile <company>" → **profile.md** |
+| A new ask while express mode is active (incl. after a cancelled plan) | **run.md**, fresh plan | "cancel. Compare <A> and <B>" → new run plan |
+| "Run autonomously" during a guided chain | **run.md**, mid-run entry | see "Entering express mid-run" below |
+| Step-by-step control, explicitly asked for | the guided workflow | "profile <company>, step by step" → **profile.md** |
 | Extend a finished express run | the guided workflow the run report names | "deep dossier on <lead>" → **dossier.md** |
 
 ---
@@ -56,6 +58,21 @@ mode changes who answers the questions — never what gets checked:
 The user extends the result afterwards through the guided workflows the
 run report names — express first, depth on demand.
 
+## Entering express mid-run
+
+"Run autonomously" (or an equivalent ask) during a guided chain is a
+mode switch, not a restart. Enter this workflow at Step 1 and assemble
+the plan from what the session has already established: every decision
+the user explicitly confirmed in the guided chain — a validated
+RESEARCH-REQUEST's fields, an approved capture plan, a confirmed
+comparison design — answers its plan field; only genuinely undecided
+fields get fresh recommendations. The Step 2 gate still runs, but WHEN
+every material field is already user-approved it is presented as a
+**user gate — confirmation** ("resuming autonomously with what you
+already approved") rather than re-asking the full decision — the
+approval is still recorded in the run log. Artifacts the guided chain
+already produced and validated are reused, never redone.
+
 ## Paths
 
 - **Orchestrated workflows**: `{workflow_request}`, `{workflow_capture}`, `{workflow_intake}`, `{workflow_discover}`, `{workflow_orient}`, `{workflow_profile}`, `{workflow_compare}`, `{workflow_review}` (and `{workflow_taxonomy}`, `{workflow_dossier}`, `{workflow_oss_review}`, `{workflow_mechanism}`, `{workflow_watch}` when the plan includes them; a planned COMPARISON-MATRIX implies `{workflow_taxonomy}` before it unless the plan records the user's explicit decline)
@@ -67,10 +84,11 @@ run report names — express first, depth on demand.
 ## Route
 
 5 steps → the full artifact set plus the RESEARCH-REVIEW audit.
-Questions: 1 decision (Step 2: the run plan), 1 closing confirmation
-(Step 5); zero expected exceptions in between. Steps 3–4 run without
-questions. Announce the route before Step 1 and prefix every question
-per the SKILL.md progress protocol.
+Questions: 1 decision (Step 2: the run plan; a confirmation instead on
+mid-run entry with every material field already user-approved), 1
+closing confirmation (Step 5); zero expected exceptions in between.
+Steps 3–4 run without questions. Announce the route before Step 1 and
+prefix every question per the SKILL.md progress protocol.
 
 ## Prerequisite Checklist
 
@@ -112,15 +130,27 @@ Present the plan as one numbered proposal — request fields, capture and
 discovery approach, depth policy, comparison frame, the expected
 artifact set, and the question budget ("this question and one closing
 confirmation; exceptions only for decisions this plan does not cover") —
-with the recommended plan as option 1 (**user gate — decision**).
-Adjustments amend the plan, not the mode.
+with the recommended plan as option 1 (**user gate — decision**). The
+adjust option must say it covers any plan field, including replacing
+the targets — a different target is an adjustment, not a cancellation.
 **STOP — end the turn after presenting the plan.** Step 3 begins only
 after the user's reply; a plan the agent drafted is not an approved
 plan, and the target already appearing in the user's message does not
 approve anything. Record the approval as the run log's first entry:
 "Plan approved by user (turn N, option X)".
-STOP WHEN the user prefers step-by-step control — route to the guided
-workflows instead.
+
+Resolve the reply by intent, not by option number alone:
+
+- **Approval** → Step 3.
+- **Adjustment** — any changed plan field, including new targets —
+  amends the plan and re-presents this gate. Adjustments amend the
+  plan, not the mode.
+- **Cancel** ends this run, never the mode. WHEN the cancelling reply
+  (or a later message) carries a new research ask, re-enter Step 1 and
+  present a fresh plan for it — the user chose express mode and has
+  not revoked it. Never fall back to the guided workflows on a cancel.
+- **Step-by-step control, explicitly asked for** — route to the guided
+  workflows. This is the only reply that leaves express mode.
 
 ## Step 3: Execute the pipeline
 
@@ -166,7 +196,8 @@ guided workflow. Present next steps and wait for the user
 ## Validation Criteria
 
 - [ ] The run log's first entry records the user's plan approval (turn and option) — a run without it is a protocol violation, not an express run
-- [ ] Exactly one decision gate before execution; every other question was either answered by the plan or logged as a counted exception
+- [ ] Exactly one plan gate before execution (a decision, or a confirmation on mid-run entry with every material field already user-approved); every other question was either answered by the plan or logged as a counted exception
+- [ ] A cancelled plan followed by a new ask produced a fresh plan gate in express mode — never a silent fall-back to the guided workflows
 - [ ] Every orchestrated workflow's deterministic gate ran unchanged and reports PASS
 - [ ] Every auto-proceeded confirmation is logged in the run report — nothing proceeded silently
 - [ ] Capture failures recorded, never asked about; the access boundary was never crossed

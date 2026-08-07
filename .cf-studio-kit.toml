@@ -7,7 +7,7 @@ manifest_version = "1.0"
 [[kits]]
 slug = "compete"
 name = "compete"
-version = "1.14.0"
+version = "1.15.0"
 
 [[kits.resources]]
 id = "research_request_template"

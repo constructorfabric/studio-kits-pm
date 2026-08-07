@@ -151,6 +151,12 @@ jobs:
           grep -q "approved only when the user answers the run-plan gate" SKILL.md
           grep -q "STOP — end the turn after presenting the plan" workflows/run.md
           grep -q "Plan approved by user" workflows/run.md
+          # Mode stickiness must not regress: a cancelled plan never silently
+          # demotes an express session to the guided workflows, and a mid-chain
+          # "run autonomously" reuses the decisions the user already confirmed.
+          grep -q "cancels that run, never the mode" SKILL.md
+          grep -q "ends this run, never the mode" workflows/run.md
+          grep -q '^## Entering express mid-run$' workflows/run.md
       - name: Kind detection survives hyphenated system slugs
         run: |
           mkdir -p /tmp/kind-test
