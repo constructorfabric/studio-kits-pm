@@ -97,6 +97,17 @@ plan does not cover surfaces as a counted exception. Express changes who
 answers the questions — deterministic gates, capture policy, and the
 closing RESEARCH-REVIEW audit run unchanged.
 
+Express mode is chosen once per session, not once per question:
+cancelling a presented run plan cancels that run, never the mode. WHEN
+the cancelling reply or a later message carries a new research ask,
+re-enter `cf-compete-run` and present a fresh plan gate for the new
+ask; route to the guided workflows only when the user explicitly asks
+for step-by-step control. A mid-chain "run autonomously" switches the
+other way: enter `cf-compete-run`, let every decision the user already
+confirmed in the guided chain answer its plan field, and present the
+plan gate as a confirmation when nothing material remains undecided
+(see the run workflow's "Entering express mid-run").
+
 ## Routing
 
 ALWAYS route to `cf-compete-capture` WHEN intent matches:
@@ -173,6 +184,13 @@ golden path: one upfront run-plan decision, autonomous execution of the
 pipeline with confirmation gates auto-proceeding (logged), the closing
 review as the audit. Route to the individual workflows instead when the
 user wants step-by-step control.
+
+ALWAYS route a new research ask to `cf-compete-run` WHEN express mode
+is active — a cf-compete-run plan was presented or approved in this
+session and the user has not asked for step-by-step control — even
+when the ask's wording matches an individual workflow's routing rule.
+Cancelling a plan does not deactivate express mode; only an explicit
+ask for step-by-step control does.
 
 ALWAYS route to `cf-compete-taxonomy` WHEN intent matches:
 "build the feature taxonomy", "how do we compare apples to apples?",

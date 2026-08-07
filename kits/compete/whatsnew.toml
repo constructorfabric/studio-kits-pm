@@ -1,5 +1,15 @@
 # What's New — Competitive Analysis Kit
 
+[whatsnew."1.15.0"]
+summary = "Express mode is sticky: a cancelled plan re-plans in express, and a mid-chain 'run autonomously' reuses confirmed decisions"
+details = """\
+- A PM demo session surfaced the failure: the user answered the express run-plan gate with "cancel" plus two new targets in one reply; the agent silently fell back to the guided chain and asked four gate questions in three minutes — read as "it started asking permission for basic actions again"
+- SKILL express semantics make the mode sticky: cancelling a presented run plan cancels that run, never the mode; a new research ask while express is active routes back to cf-compete-run for a fresh plan gate, even when its wording matches an individual workflow's routing rule; only an explicit ask for step-by-step control leaves express mode
+- cf-compete-run Step 2 resolves the gate reply by intent: replacing targets is an adjustment (amends the plan, keeps the mode — the adjust option must say so), cancel ends the run only, and a new ask in the cancelling reply re-enters Step 1 with a fresh plan
+- New "Entering express mid-run" contract: a mid-chain "run autonomously" assembles the plan from the decisions the user already confirmed in the guided chain (validated request fields, approved capture plan, confirmed comparison design); the plan gate still runs — as a confirmation when nothing material remains undecided — and its approval is still logged; validated guided-chain artifacts are reused, never redone
+- CI greps guard the mode-stickiness phrases and the mid-run-entry section against regression\
+"""
+
 [whatsnew."1.14.0"]
 summary = "Contract hardening: idempotent traceability, bound watch passes, one ID lifecycle, dir-aware kind detection"
 details = """\

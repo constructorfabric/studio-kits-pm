@@ -151,6 +151,33 @@ jobs:
           grep -q "approved only when the user answers the run-plan gate" SKILL.md
           grep -q "STOP — end the turn after presenting the plan" workflows/run.md
           grep -q "Plan approved by user" workflows/run.md
+          # Mode stickiness must not regress: a cancelled plan never silently
+          # demotes an express session to the guided workflows, and a mid-chain
+          # "run autonomously" reuses the decisions the user already confirmed.
+          grep -q "cancels that run, never the mode" SKILL.md
+          grep -q "ends this run, never the mode" workflows/run.md
+          grep -q '^## Entering express mid-run$' workflows/run.md
+          # The full express contract, checked with line wrapping normalized
+          # (grep alone misses phrases split across hard-wrapped lines).
+          python3 - <<'PY'
+          from pathlib import Path
+          skill = " ".join(Path("SKILL.md").read_text().split())
+          run = " ".join(Path("workflows/run.md").read_text().split())
+          checks = (
+              (skill, "re-enter `cf-compete-run` and present a fresh plan gate"),
+              (run, "re-enter Step 1 and present a fresh plan"),
+              (run, "An explicit cancel takes precedence"),
+              (run, "Step-by-step control, explicitly asked for"),
+              (run, "every decision the user explicitly confirmed in the guided chain"),
+              (run, "only genuinely undecided fields get fresh recommendations"),
+              (run, "**user gate — confirmation**"),
+              (run, "are reused when their commissioning request and plan inputs remain compatible"),
+              (run, "invalidates the affected artifacts, and their stages rerun"),
+          )
+          for text, phrase in checks:
+              if phrase not in text:
+                  raise SystemExit(f"missing express contract: {phrase}")
+          PY
       - name: Kind detection survives hyphenated system slugs
         run: |
           mkdir -p /tmp/kind-test
