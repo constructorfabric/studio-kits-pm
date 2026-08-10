@@ -1,0 +1,148 @@
+# Product Spec Kit — structural constraints
+# Enforced deterministically by `cfs validate` (Gate 1).
+
+# ── OPPORTUNITY Heading outline ───────────────────────────────────────
+
+[[artifacts.OPPORTUNITY.headings]]
+id = "opp-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+description = "Opportunity title (H1)."
+
+[[artifacts.OPPORTUNITY.headings]]
+id = "opp-problem"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Problem Statement"
+description = "The user/business problem, stated without a solution."
+
+[[artifacts.OPPORTUNITY.headings]]
+id = "opp-evidence"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Evidence"
+description = "Data, quotes, tickets, or research backing the problem."
+
+[[artifacts.OPPORTUNITY.headings]]
+id = "opp-target-users"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Target Users"
+description = "Who has this problem and how often."
+
+[[artifacts.OPPORTUNITY.headings]]
+id = "opp-impact"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Business Impact"
+description = "What changes for the business if solved (or ignored)."
+
+[[artifacts.OPPORTUNITY.headings]]
+id = "opp-next-step"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Recommended Next Step"
+description = "The single recommended action: validate, prototype, spec, drop."
+
+# ── OPPORTUNITY ID kinds ──────────────────────────────────────────────
+
+[artifacts.OPPORTUNITY.identifiers.opp]
+name = "Product Opportunity"
+description = "A framed product problem with evidence; referenced from USE-CASE and PRD."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-opp-{slug}"
+headings = ["opp-h1-title"]
+
+# ── USE-CASE Heading outline ──────────────────────────────────────────
+
+[[artifacts.USE-CASE.headings]]
+id = "usecase-h1-title"
+level = 1
+required = true
+multiple = false
+numbered = false
+description = "Use case title (H1)."
+
+[[artifacts.USE-CASE.headings]]
+id = "usecase-actors"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Actors"
+description = "Primary and secondary actors."
+
+[[artifacts.USE-CASE.headings]]
+id = "usecase-preconditions"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Preconditions"
+description = "What must be true before the flow starts."
+
+[[artifacts.USE-CASE.headings]]
+id = "usecase-main-flow"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Main Flow"
+description = "Numbered happy-path steps."
+
+[[artifacts.USE-CASE.headings]]
+id = "usecase-alt-flows"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Alternative Flows"
+description = "Deviations and error paths."
+
+[[artifacts.USE-CASE.headings]]
+id = "usecase-acceptance"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Acceptance Criteria"
+description = "Verifiable pass/fail statements."
+
+[[artifacts.USE-CASE.headings]]
+id = "usecase-traceability"
+level = 2
+required = true
+multiple = false
+numbered = false
+pattern = "Traceability"
+description = "Links back to the OPPORTUNITY this use case serves."
+
+# ── USE-CASE ID kinds ─────────────────────────────────────────────────
+
+[artifacts.USE-CASE.identifiers.usecase]
+name = "Use Case"
+description = "One user goal end to end; references the OPPORTUNITY that justifies it."
+required = true
+task = false
+priority = false
+to_code = false
+template = "cpt-{system}-usecase-{slug}"
+headings = ["usecase-h1-title"]
+
+[artifacts.USE-CASE.identifiers.usecase.references.OPPORTUNITY]
+coverage = false

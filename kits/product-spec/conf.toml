@@ -1,0 +1,5 @@
+# Product Spec Kit Configuration
+
+slug = "product-spec"
+name = "Product Spec Kit"
+version = "0.1.1"

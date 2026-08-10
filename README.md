@@ -11,6 +11,7 @@ directory under `kits/` and installs independently.
 | Kit | Directory | What it does |
 |-----|-----------|--------------|
 | Competitive Analysis (`compete`) | [`kits/compete/`](kits/compete/) | Evidence-first competitive research: research requests, candidate registers, company profiles and dossiers, feature taxonomies, single-frame comparison matrices with deck exports, watch reports, and a quality-loop review — every claim carrying an evidence locator, an observation date, and an explicit boundary. |
+| Product Spec (`product-spec`) | [`kits/product-spec/`](kits/product-spec/) | The pre-PRD product layer: evidence-backed opportunities that frame a problem before any solution exists, use cases that specify one user goal end to end with pass/fail acceptance criteria, and a conformance-and-traceability audit — every requirement downstream traceable to a dated source. |
 
 ## Install a kit
 
